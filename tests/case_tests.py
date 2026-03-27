@@ -1,5 +1,5 @@
 import pytest
-from utils.graphql_client import GraphQLClient
+from config.graphql_client import GraphQLClient
 from queries.case_queries import CREATE_CASE_MUTATION
 from variables.case_variables import create_case_input
 from utils.cleanup_methods import CleanupHelper
