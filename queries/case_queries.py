@@ -1,5 +1,3 @@
-# queries/case_queries.py
-
 CREATE_CASE_MUTATION = """
 mutation ent(
   $auth: AuthInput!
@@ -12,6 +10,15 @@ mutation ent(
     id
     text
     status
+  }
+}
+"""
+
+DELETE_CASE_MUTATION = """
+mutation deleteCSFolder($conversationSafeFolder: String!) {
+  deleteConversationSafeFolder(id: $conversationSafeFolder) {
+    status
+    __typename
   }
 }
 """

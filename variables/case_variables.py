@@ -45,4 +45,7 @@ create_case_input = {
     }
 }
 
-
+def delete_case_input(case_id: str):
+    return {
+        "conversationSafeFolder": case_id
+    }

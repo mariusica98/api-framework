@@ -2,6 +2,7 @@ import pytest
 from utils.graphql_client import GraphQLClient
 from queries.case_queries import CREATE_CASE_MUTATION
 from variables.case_variables import create_case_input
+from utils.cleanup_methods import CleanupHelper
 
 @pytest.fixture(scope="module")
 def client():
@@ -16,11 +17,16 @@ class TestCaseFlow:
         response = client.execute(CREATE_CASE_MUTATION, create_case_input)
         case_folder = response["data"]["createConversationSafeFolder"]
 
-        assert isinstance(case_folder["id"], str) and case_folder["id"] != "", \
-            f"Expected a non-empty string for 'id', but got: {case_folder['id']!r}"
+        case_id = case_folder["id"] 
 
+        assert isinstance(case_id, str) and case_id != "", \
+            f"Expected a non-empty string for 'id', but got: {case_id!r}"
         assert case_folder["status"] == "ok", \
             f"Expected status 'ok', but got: {case_folder['status']!r}"
-
         assert case_folder["text"] == "", \
             f"Expected text to be empty string '', but got: {case_folder['text']!r}"
+        
+        # Cleanup
+        cleanup = CleanupHelper(client)
+        cleanup.delete_case_by_id(case_id)
+    
