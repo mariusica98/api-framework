@@ -21,6 +21,7 @@ class TestCaseFlow:
         case_folder = None
         case_id = None
         try:
+            # --- Create case  ---
             case_folder = case_helper.create_case(CREATE_CASE_INPUT)
             case_id = case_folder["id"]
 
