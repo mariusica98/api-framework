@@ -14,19 +14,24 @@ class TestCaseFlow:
         """
         The test verifies the Case creation.
         """
-        response = client.execute(CREATE_CASE_MUTATION, create_case_input)
-        case_folder = response["data"]["createConversationSafeFolder"]
+        case_id = None
+        try:
+            response = client.execute(CREATE_CASE_MUTATION, create_case_input)
+            case_folder = response["data"]["createConversationSafeFolder"]
 
-        case_id = case_folder["id"] 
+            case_id = case_folder["id"]
 
-        assert isinstance(case_id, str) and case_id != "", \
-            f"Expected a non-empty string for 'id', but got: {case_id!r}"
-        assert case_folder["status"] == "ok", \
-            f"Expected status 'ok', but got: {case_folder['status']!r}"
-        assert case_folder["text"] == "", \
-            f"Expected text to be empty string '', but got: {case_folder['text']!r}"
-        
-        # Cleanup
-        cleanup = CleanupHelper(client)
-        cleanup.delete_case_by_id(case_id)
+            # Asserts
+            assert isinstance(case_id, str) and case_id != "", \
+                f"Expected a non-empty string for 'id', but got: {case_id!r}"
+            assert case_folder["status"] == "ok", \
+                f"Expected status 'ok', but got: {case_folder['status']!r}"
+            assert case_folder["text"] == "", \
+                f"Expected text to be empty string '', but got: {case_folder['text']!r}"
+
+        finally:
+            # Cleanup
+            if case_id:
+                cleanup = CleanupHelper(client)
+                cleanup.delete_case_by_id(case_id)
     
