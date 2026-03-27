@@ -1,4 +1,4 @@
-# variables/case_variables.py
+from utils.test_data import *
 
 create_case_input = {
     "auth": {
@@ -8,8 +8,8 @@ create_case_input = {
     },
     "conversationSafeFolder": {
         "id": "",
-        "name": "Test Case Creation via API!!!!!",
-        "description": "Test Case Creation description",
+        "name": TEST_CASE_NAME,
+        "description": TEST_CASE_DESCRIPTION,
         "supervisors": [],
         "conversations": [],
         "userId": "",
@@ -44,3 +44,5 @@ create_case_input = {
         }
     }
 }
+
+
