@@ -1,6 +1,6 @@
 from utils.test_data import *
 
-create_case_input = {
+CREATE_CASE_INPUT = {
     "auth": {
         "locale": "en-US",
         "timeZone": -120,
@@ -45,7 +45,15 @@ create_case_input = {
     }
 }
 
-def delete_case_input(case_id: str):
-    return {
-        "conversationSafeFolder": case_id
+GET_CASE_BY_ID_INPUT = {
+    "id": None, 
+    "auth": {
+        "locale": "ro-RO",
+        "timeZone": -120,
+        "timeZoneId": "Europe/Bucharest"
     }
+}
+
+DELETE_CASE_BY_ID_INPUT_TEMPLATE = {
+    "conversationSafeFolder": None  
+}

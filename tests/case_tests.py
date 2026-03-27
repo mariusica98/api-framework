@@ -1,37 +1,63 @@
 import pytest
 from config.graphql_client import GraphQLClient
-from queries.case_queries import CREATE_CASE_MUTATION
-from variables.case_variables import create_case_input
-from utils.cleanup_methods import CleanupHelper
+from utils.case_helper import CaseHelper
+from variables.case_variables import CREATE_CASE_INPUT
 
 @pytest.fixture(scope="module")
 def client():
-    return GraphQLClient() 
+    return GraphQLClient()
+
+@pytest.fixture(scope="module")
+def case_helper(client):
+    return CaseHelper(client)
+
 
 class TestCaseFlow:
 
-    def test_create_case(self, client):
+    def test_create_case(self, case_helper):
         """
-        The test verifies the Case creation.
+        The test verify Case creation
         """
+        case_folder = None
         case_id = None
         try:
-            response = client.execute(CREATE_CASE_MUTATION, create_case_input)
-            case_folder = response["data"]["createConversationSafeFolder"]
-
+            case_folder = case_helper.create_case(CREATE_CASE_INPUT)
             case_id = case_folder["id"]
 
-            # Asserts
+            # --- Assertions for create ---
             assert isinstance(case_id, str) and case_id != "", \
-                f"Expected a non-empty string for 'id', but got: {case_id!r}"
+                f"Expected non-empty string for id, got: {case_id!r}"
             assert case_folder["status"] == "ok", \
-                f"Expected status 'ok', but got: {case_folder['status']!r}"
+                f"Expected status 'ok', got: {case_folder['status']!r}"
             assert case_folder["text"] == "", \
-                f"Expected text to be empty string '', but got: {case_folder['text']!r}"
-
+                f"Expected text to be empty string, got: {case_folder['text']!r}"
         finally:
             # Cleanup
             if case_id:
-                cleanup = CleanupHelper(client)
-                cleanup.delete_case_by_id(case_id)
-    
+                case_helper.delete_case_by_id(case_id)
+
+    def test_get_case_by_id(self, case_helper):
+        """
+        The test verify getting Case by ID
+        """
+        case_id = None
+        try:
+            # --- Create case  ---
+            case_folder = case_helper.create_case(CREATE_CASE_INPUT)
+            case_id = case_folder["id"]
+
+            # --- Get case by ID ---
+            case_data = case_helper.get_case_by_id(case_id)
+
+            # --- Assertions for GET ---
+            assert case_data["id"] == case_id, f"Expected id {case_id}, got {case_data['id']}"
+            assert case_data["name"] == CREATE_CASE_INPUT["conversationSafeFolder"]["name"], \
+                f"Expected name {CREATE_CASE_INPUT['conversationSafeFolder']['name']}, got {case_data['name']}"
+            assert case_data["description"] == CREATE_CASE_INPUT["conversationSafeFolder"]["description"], \
+                f"Expected description {CREATE_CASE_INPUT['conversationSafeFolder']['description']}, got {case_data['description']}"
+            assert case_data["isCaseManagement"] is True, \
+                f"Expected isCaseManagement True, got {case_data['isCaseManagement']}"
+        finally:
+            # Cleanup
+            if case_id:
+                case_helper.delete_case_by_id(case_id)
