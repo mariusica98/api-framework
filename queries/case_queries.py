@@ -73,4 +73,13 @@ query getConversationSafeFolder($id: String, $auth: AuthInput) {
 }
 """
 
-
+GET_ALL_CASES_QUERY = """
+query getAllCSFolders($auth: AuthInput, $filter: String) {
+  getConversationSafeFolders(input: $auth, filter: $filter) {
+    id
+    name
+    description
+    isCaseManagement
+  }
+}
+"""

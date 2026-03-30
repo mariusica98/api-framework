@@ -39,3 +39,19 @@ class CaseHelper:
         if status != "ok":
             raise Exception(f"Failed to delete case {case_id}, got status: {status}")
         return status
+
+    def get_all_cases(self, filter="AllItems"):
+        """
+        Retrieves all cases.
+        """
+        variables = {
+            "auth": {
+                "locale": "ro-RO",
+                "timeZone": -120,
+                "timeZoneId": "Europe/Bucharest"
+            },
+            "filter": filter
+        }
+        response = self.client.execute(GET_ALL_CASES_QUERY, variables)
+        return response["data"].get("getConversationSafeFolders", [])
+    

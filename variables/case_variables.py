@@ -57,3 +57,12 @@ GET_CASE_BY_ID_INPUT = {
 DELETE_CASE_BY_ID_INPUT_TEMPLATE = {
     "conversationSafeFolder": None  
 }
+
+GET_ALL_CASES_INPUT = {
+    "auth": {
+        "locale": "ro-RO",
+        "timeZone": -120,
+        "timeZoneId": "Europe/Bucharest"
+    },
+    "filter": "AllItems"
+}
