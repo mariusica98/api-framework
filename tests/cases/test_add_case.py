@@ -40,3 +40,35 @@ class TestCreateCaseFlow:
             with allure.step("Deleting the case"):
                 if case_id:
                     case_helper.delete_case_by_id(case_id)
+
+
+    @allure.feature("Case Management")
+    @allure.title("Create Case with error - duplicate name")
+    def test_create_duplicate_case(self, case_helper):
+
+        first_case_id = None
+        second_case_result = None
+        try:
+            # --- Create first case ---
+            with allure.step("Creating the first case"):
+                first_case_folder = case_helper.create_case(CREATE_CASE_INPUT)
+                first_case_id = first_case_folder["id"]
+
+            # --- Attempt to create second case with same name ---
+            with allure.step("Creating a second case with the same name"):
+                second_case_result = case_helper.create_case(CREATE_CASE_INPUT)
+
+            # --- Verify errors for duplicate case ---
+            with allure.step("Verifying errors for duplicate case"):
+                assert second_case_result["status"] == "error", \
+                    f"Expected status 'error' for duplicate case, got: {second_case_result['status']!r}"
+                assert second_case_result["text"] == "nameDuplicatedError", \
+                    f"Expected text 'nameDuplicatedError', got: {second_case_result['text']!r}"
+                assert second_case_result["id"] == "", \
+                    f"Expected empty ID for duplicate case, got: {second_case_result['id']!r}"
+
+        finally:
+            # Cleanup
+            with allure.step("Deleting the first case"):
+                if first_case_id:
+                    case_helper.delete_case_by_id(first_case_id)
