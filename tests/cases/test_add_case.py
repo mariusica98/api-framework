@@ -58,7 +58,7 @@ class TestCreateCaseFlow:
             with allure.step("Creating a second case with the same name"):
                 second_case_result = case_helper.create_case(CREATE_CASE_INPUT)
 
-            # --- Verify errors for duplicate case ---
+            # --- Assertions for duplicate case ---
             with allure.step("Verifying errors for duplicate case"):
                 assert second_case_result["status"] == "error", \
                     f"Expected status 'error' for duplicate case, got: {second_case_result['status']!r}"
