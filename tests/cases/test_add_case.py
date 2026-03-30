@@ -12,7 +12,7 @@ def client():
 def case_helper(client):
     return CaseHelper(client)
 
-class TestCaseFlow:
+class TestCreateCaseFlow:
 
     @allure.feature("Case Management")
     @allure.title("Create Case successfully")
@@ -37,30 +37,6 @@ class TestCaseFlow:
 
         finally:
             # Cleanup
-            with allure.step("Deleting the case"):
-                if case_id:
-                    case_helper.delete_case_by_id(case_id)
-
-    @allure.feature("Case Management")
-    @allure.title("Get Case by ID successfully")
-    def test_get_case_by_id(self, case_helper):
-
-        case_id = None
-        try:
-            with allure.step("Creating a new case for GET"):
-                case_folder = case_helper.create_case(CREATE_CASE_INPUT)
-                case_id = case_folder["id"]
-
-            with allure.step("Getting case by ID"):
-                case_data = case_helper.get_case_by_id(case_id)
-
-            with allure.step("Verifying case data"):
-                assert case_data["id"] == case_id
-                assert case_data["name"] == CREATE_CASE_INPUT["conversationSafeFolder"]["name"]
-                assert case_data["description"] == CREATE_CASE_INPUT["conversationSafeFolder"]["description"]
-                assert case_data["isCaseManagement"] is True
-
-        finally:
             with allure.step("Deleting the case"):
                 if case_id:
                     case_helper.delete_case_by_id(case_id)
