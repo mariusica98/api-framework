@@ -2,6 +2,7 @@ import pytest
 from config.graphql_client import GraphQLClient
 from utils.case_helper import CaseHelper
 from variables.case_variables import CREATE_CASE_INPUT
+import allure
 
 @pytest.fixture(scope="module")
 def client():
@@ -11,13 +12,12 @@ def client():
 def case_helper(client):
     return CaseHelper(client)
 
-
 class TestCaseFlow:
 
+    @allure.feature("Case Management")
+    @allure.title("Create Case successfully")
     def test_create_case(self, case_helper):
-        """
-        The test verify Case creation
-        """
+    
         case_folder = None
         case_id = None
         try:
@@ -37,10 +37,10 @@ class TestCaseFlow:
             if case_id:
                 case_helper.delete_case_by_id(case_id)
 
+    @allure.feature("Case Management")
+    @allure.title("Get Case by ID successfully")
     def test_get_case_by_id(self, case_helper):
-        """
-        The test verify getting Case by ID
-        """
+
         case_id = None
         try:
             # --- Create case  ---
