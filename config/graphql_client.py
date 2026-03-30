@@ -2,8 +2,7 @@ import os
 import json
 import requests
 
-# The GraphQLClient class is responsible for loading the configuration from a JSON file and sending GraphQL requests to the specified endpoint. It uses the `requests` library to make HTTP POST requests with the appropriate headers, including an authorization token. The `execute` method takes a GraphQL query and optional variables, constructs the payload, and sends the request to the endpoint, returning the JSON response.
-
+# This class creates a GraphQL client that loads environment configuration from a JSON file and sends GraphQL requests to the specified endpoint.
 class GraphQLClient:
     def __init__(self, env_name="T03", config_file="env-config.json"):
         self.env_name = env_name
