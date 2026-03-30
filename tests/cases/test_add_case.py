@@ -46,8 +46,9 @@ class TestCreateCaseFlow:
     @allure.title("Create Case with error - duplicate name")
     def test_create_duplicate_case(self, case_helper):
 
+        first_case_folder = None
+        second_case_folder = None
         first_case_id = None
-        second_case_result = None
         try:
             # --- Create first case ---
             with allure.step("Creating the first case"):
@@ -56,16 +57,16 @@ class TestCreateCaseFlow:
 
             # --- Attempt to create second case with same name ---
             with allure.step("Creating a second case with the same name"):
-                second_case_result = case_helper.create_case(CREATE_CASE_INPUT)
+                second_case_folder = case_helper.create_case(CREATE_CASE_INPUT)
 
             # --- Assertions for duplicate case ---
             with allure.step("Verifying errors for duplicate case"):
-                assert second_case_result["status"] == "error", \
-                    f"Expected status 'error' for duplicate case, got: {second_case_result['status']!r}"
-                assert second_case_result["text"] == "nameDuplicatedError", \
-                    f"Expected text 'nameDuplicatedError', got: {second_case_result['text']!r}"
-                assert second_case_result["id"] == "", \
-                    f"Expected empty ID for duplicate case, got: {second_case_result['id']!r}"
+                assert second_case_folder["status"] == "error", \
+                    f"Expected status 'error' for duplicate case, got: {second_case_folder['status']!r}"
+                assert second_case_folder["text"] == "nameDuplicatedError", \
+                    f"Expected text 'nameDuplicatedError', got: {second_case_folder['text']!r}"
+                assert second_case_folder["id"] == "", \
+                    f"Expected empty ID for duplicate case, got: {second_case_folder['id']!r}"
 
         finally:
             # Cleanup
