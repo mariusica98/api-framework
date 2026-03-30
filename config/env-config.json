@@ -1,0 +1,5 @@
+{
+  "T03": {
+    "endpoint": "https://devt03-graph.asc-recording.dev/graphql"
+  }
+}
