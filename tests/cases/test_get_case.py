@@ -18,6 +18,7 @@ class TestGetCaseFlow:
     @allure.title("Get Case by ID successfully")
     def test_get_case_by_id(self, case_helper):
 
+        case_folder = None
         case_id = None
         try:
             # --- Create case  ---
@@ -29,7 +30,7 @@ class TestGetCaseFlow:
             with allure.step("Getting case by ID"):
                 case_data = case_helper.get_case_by_id(case_id)
 
-            # --- Assertions for get ---
+            # --- Assertions for get case ---
             with allure.step("Verifying case data"):
                 assert case_data["id"] == case_id
                 assert case_data["name"] == CREATE_CASE_INPUT["conversationSafeFolder"]["name"]
