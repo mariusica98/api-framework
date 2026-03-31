@@ -2,6 +2,7 @@ import pytest
 from config.graphql_client import GraphQLClient
 from utils.case_helper import CaseHelper
 from variables.case_variables import CREATE_CASE_INPUT
+from utils.test_data import *
 import allure
 
 @pytest.fixture(scope="module")
@@ -61,3 +62,16 @@ class TestGetCaseFlow:
                 assert "description" in case, "Each case should have 'description'"
                 assert "isCaseManagement" in case, "Each case should have 'isCaseManagement'"
 
+    @allure.feature("Case Management")
+    @allure.title("Get Case with error - non-existent case ID")
+    def test_get_case_by_nonexisting_id(self, case_helper):
+
+           # --- Get non-existent case  ---
+        with allure.step("Getting case with error - non-existent ID"):
+            case_data = case_helper.get_case_by_id(TEST_INVALID_CASE_ID)
+
+         # --- Assertions for get case by non-existent ID ---
+        with allure.step("Verifying response fields are empty for non-existent case"):
+            assert case_data["name"] is None
+            assert case_data["description"] is None
+            assert case_data["id"] is None
