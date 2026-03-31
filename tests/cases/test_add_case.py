@@ -41,7 +41,6 @@ class TestCreateCaseFlow:
                 if case_id:
                     case_helper.delete_case_by_id(case_id)
 
-
     @allure.feature("Case Management")
     @allure.title("Create Case with error - duplicate name")
     def test_create_duplicate_case(self, case_helper):
