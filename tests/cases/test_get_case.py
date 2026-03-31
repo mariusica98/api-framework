@@ -3,6 +3,7 @@ from config.graphql_client import GraphQLClient
 from utils.case_helper import CaseHelper
 from variables.case_variables import CREATE_CASE_INPUT
 from utils.test_data import *
+from models.case_error import *
 import allure
 
 @pytest.fixture(scope="module")
@@ -66,12 +67,26 @@ class TestGetCaseFlow:
     @allure.title("Get Case with error - non-existent case ID")
     def test_get_case_by_nonexisting_id(self, case_helper):
 
-           # --- Get non-existent case  ---
+        # --- Get non-existent case ---
         with allure.step("Getting case with error - non-existent ID"):
             case_data = case_helper.get_case_by_id(TEST_INVALID_CASE_ID)
 
-         # --- Assertions for get case by non-existent ID ---
-        with allure.step("Verifying response fields are empty for non-existent case"):
-            assert case_data["name"] is None
-            assert case_data["description"] is None
-            assert case_data["id"] is None
+        # --- Map the raw response to the ErrorCase model ---
+        with allure.step("Mapping response to ErrorCase model"):
+            actual_case = GetCaseNonExistingIdResponse(**case_data)
+
+        # --- Expected empty/error case ---
+        expected_case = GetCaseNonExistingIdResponse(
+            id=None,
+            name=None,
+            description=None,
+            supervisors=[],
+            conversations=[],
+            allowedInPolicy=False,
+            allowedToEditFlagAllowedInPolicy=False,
+            isCaseManagement=False
+        )
+
+        # --- Assertions for get case by non-existent ID ---
+        with allure.step("Verifying response fields for non-existent case"):
+            assert actual_case == expected_case
