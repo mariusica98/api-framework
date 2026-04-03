@@ -45,6 +45,51 @@ CREATE_CASE_INPUT = {
     }
 }
 
+CREATE_CASE_EMPTY_STATUS_INPUT = {
+    "auth": {
+        "locale": "en-US",
+        "timeZone": -120,
+        "timeZoneId": "Europe/Bucharest"
+    },
+    "conversationSafeFolder": {
+        "id": "",
+        "name": TEST_CASE_NAME,
+        "description": TEST_CASE_DESCRIPTION,
+        "supervisors": [],
+        "conversations": [],
+        "userId": "",
+        "tenantId": "",
+        "visibilityDetails": {
+            "visibilityDetailsActive": False,
+            "visibilityDetailsTranscript": False,
+            "visibilityDetailsAnalytics": False,
+            "visibilityDetailsAnalyticsChange": False,
+            "visibilityDetailsMetadata": False,
+            "visibilityDetailsTTL": False,
+            "visibilityDetailsCustomFields": False,
+            "visibilityDetailsNotes": False,
+            "visibilityDetailsReplay": False,
+            "visibilityDetailsQM": False,
+            "visibilityCleanUp": False,
+            "visibilityExport": False
+        },
+        "addConversations": False,
+        "removeConversations": False,
+        "exportFolders": False,
+        "allowedInPolicy": False,
+        "isCaseManagement": True,
+        "caseManagementDetails": {
+            "reviewers": [],
+            "observers": [],
+            "legalHold": False,
+            "caseStatus": "",
+            "contentStatus": "NEW",
+            "contentRiskRating": "Info",
+            "caseThreadId": ""
+        }
+    }
+}
+
 GET_CASE_BY_ID_INPUT = {
     "id": None, 
     "auth": {

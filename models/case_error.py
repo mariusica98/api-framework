@@ -1,3 +1,4 @@
+
 from typing import List, Optional
 from attr import dataclass
 
@@ -20,3 +21,19 @@ class GetCaseNonExistingIdResponse:
     allowedToEditFlagAllowedInPolicy: bool = False
     isCaseManagement: bool = False
     caseManagementDetails: Optional[dict] = None
+
+@dataclass
+class GraphQLErrorExtensions:
+    code: Optional[str] = None
+    codes: Optional[List[str]] = None
+    number: Optional[str] = None
+
+@dataclass
+class GraphQLError:
+    message: Optional[str] = None
+    extensions: Optional[GraphQLErrorExtensions] = None
+
+@dataclass
+class GraphQLErrorResponse:
+    errors: Optional[List[GraphQLError]] = None
+    data: Optional[dict] = None 
