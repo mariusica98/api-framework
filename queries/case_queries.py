@@ -1,3 +1,5 @@
+
+# CREATE CASE QUERIES
 CREATE_CASE_MUTATION = """
 mutation ent(
   $auth: AuthInput!
@@ -14,6 +16,7 @@ mutation ent(
 }
 """
 
+# DELETE CASE QUERIES
 DELETE_CASE_MUTATION = """
 mutation deleteCSFolder($conversationSafeFolder: String!) {
   deleteConversationSafeFolder(id: $conversationSafeFolder) {
@@ -23,6 +26,7 @@ mutation deleteCSFolder($conversationSafeFolder: String!) {
 }
 """
 
+# GET CASE QUERIES
 GET_CASE_BY_ID_QUERY = """
 query getConversationSafeFolder($id: String, $auth: AuthInput) {
   getConversationSafeFolder(id: $id, input: $auth) {
