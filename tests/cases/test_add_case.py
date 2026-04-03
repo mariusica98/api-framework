@@ -117,3 +117,46 @@ class TestCreateCaseFlow:
                 assert error_response.data is None or \
                     error_response.data.get("createConversationSafeFolder") is None, \
                     "Expected no case to be created when status is empty"
+    
+    @allure.feature("Case Management")
+    @allure.title("Create Case with error - empty initial content status")
+    def test_create_case_empty_initial_content_status(self, case_helper):
+
+        error_response = None
+        input_data = CREATE_CASE_EMPTY_INITIAL_CASE_CONTENT_STATUS_INPUT.copy()
+        input_data["contentStatus"] = ""
+        try:
+            # --- Create case with empty initial content status ---
+            with allure.step("Creating a case with empty initial content status"):
+                try:
+                    response = case_helper.create_case(input_data)
+                except requests.exceptions.HTTPError as e:
+                    response_json = e.response.json()
+                    # Create a structured error response from the GraphQL error
+                    error_response = GraphQLErrorResponse(
+                        errors=[GraphQLError(
+                            message=err.get("message"),
+                            extensions=GraphQLErrorExtensions(
+                                code=err.get("extensions", {}).get("code")
+                            )
+                        ) for err in response_json.get("errors", [])],
+                        data=response_json.get("data")
+                    )
+                else:
+                    if response.get("status") == "error":
+                        error_response = GraphQLErrorResponse(**response)
+
+            # --- Assertions for case with empty initial content status ---
+            with allure.step("Verifying errors for case with empty initial content status"):
+                assert error_response is not None, "Expected an error response when initial content status is empty"
+                assert len(error_response.errors) > 0, "Expected at least one error"
+                error = error_response.errors[0]
+                assert "contentStatus" in error.message, f"Expected 'contentStatus' in error message, got: {error.message!r}"
+                assert error.extensions.code == "INVALID_VALUE", f"Expected code 'INVALID_VALUE', got: {error.extensions.code!r}"
+
+        finally:
+            # --- Verify that no case was created ---
+            with allure.step("Verifying that no case was created"):
+                assert error_response.data is None or \
+                    error_response.data.get("createConversationSafeFolder") is None, \
+                    "Expected no case to be created when initial content status is empty"
