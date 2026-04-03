@@ -104,11 +104,12 @@ class TestCreateCaseFlow:
                         error_response = GraphQLErrorResponse(**response)
 
              # --- Assertions for case with empty status ---
-            assert error_response is not None, "Expected an error response when status is empty"
-            assert len(error_response.errors) > 0, "Expected at least one error"
-            error = error_response.errors[0]
-            assert "caseStatus" in error.message, f"Expected 'caseStatus' in error message, got: {error.message!r}"
-            assert error.extensions.code == "INVALID_VALUE", f"Expected code 'INVALID_VALUE', got: {error.extensions.code!r}"
+            with allure.step("Verifying errors for case with empty status"):
+                assert error_response is not None, "Expected an error response when status is empty"
+                assert len(error_response.errors) > 0, "Expected at least one error"
+                error = error_response.errors[0]
+                assert "caseStatus" in error.message, f"Expected 'caseStatus' in error message, got: {error.message!r}"
+                assert error.extensions.code == "INVALID_VALUE", f"Expected code 'INVALID_VALUE', got: {error.extensions.code!r}"
 
         finally:
             # --- Verify that no case was created ---
