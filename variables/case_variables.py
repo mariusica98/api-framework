@@ -1,5 +1,6 @@
 from utils.test_data import *
 
+ # CREATE CASE INPUTS
 CREATE_CASE_INPUT = {
     "auth": {
         "locale": "en-US",
@@ -135,6 +136,7 @@ CREATE_CASE_EMPTY_INITIAL_CASE_CONTENT_STATUS_INPUT = {
     }
 }   
 
+# GET CASES INPUTS
 GET_CASE_BY_ID_INPUT = {
     "id": None, 
     "auth": {
@@ -153,6 +155,7 @@ GET_ALL_CASES_INPUT = {
     "filter": "AllItems"
 }
 
+# DELETE CASE INPUT
 DELETE_CASE_BY_ID_INPUT_TEMPLATE = {
     "conversationSafeFolder": None  
 }
