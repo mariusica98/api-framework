@@ -32,13 +32,19 @@ class CaseHelper:
         Deletes a Case by its ID.
         """
         if not case_id:
-            return "skipped"
+            return "skipped", None
+
         payload = {"conversationSafeFolder": case_id}
         response = self.client.execute(DELETE_CASE_MUTATION, payload)
-        status = response["data"]["deleteConversationSafeFolder"]["status"]
+
+        result = response["data"]["deleteConversationSafeFolder"]
+        status = result["status"]
+        typename = result.get("__typename")
+
         if status != "ok":
             raise Exception(f"Failed to delete case {case_id}, got status: {status}")
-        return status
+
+        return status, typename
 
     def get_all_cases(self, filter="AllItems"):
         """

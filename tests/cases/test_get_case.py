@@ -70,9 +70,6 @@ class TestGetCaseFlow:
         # --- Get non-existent case ---
         with allure.step("Getting case with error - non-existent ID"):
             case_data = case_helper.get_case_by_id(TEST_INVALID_CASE_ID)
-
-        # --- Map the raw response to the ErrorCase model ---
-        with allure.step("Mapping response to ErrorCase model"):
             actual_case = GetCaseNonExistingIdResponse(**case_data)
 
         # --- Expected empty/error case ---
