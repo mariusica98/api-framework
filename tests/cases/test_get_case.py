@@ -1,10 +1,10 @@
 import pytest
-from config.graphql_client import GraphQLClient
-from utils.case_helper import CaseHelper
-from variables.case_variables import CREATE_CASE_INPUT_1
+import allure
+from config.graphql_client import *
+from utils.case_helper import *
+from variables.case_variables import *
 from utils.test_data import *
 from models.case_error import *
-import allure
 
 @pytest.fixture(scope="module")
 def client():
@@ -23,23 +23,35 @@ class TestGetCaseFlow:
         case_folder = None
         case_id = None
         try:
-            # --- Create case  ---
+            #-- Input data for creating a case ---
+            create_input = build_create_case_input(
+                name=TEST_CASE_NAME_1,
+                description=TEST_CASE_DESCRIPTION,
+                case_status=TEST_CASE_STATUS_OPEN,
+                content_status=TEST_CASE_CONTENT_STATUS_NEW,
+                content_risk_rating=TEST_CASE_RISK_RATING_INFORMATION,
+                user_id="",
+                tenant_id=""
+            )
+
+            #-- Create case ---
             with allure.step("Creating a new case for GET"):
-                case_folder = case_helper.create_case(CREATE_CASE_INPUT_1)
+                case_folder = case_helper.create_case(create_input)
                 case_id = case_folder["id"]
 
-            # --- Get case  ---
+            # --- Get case by ID ---
             with allure.step("Getting case by ID"):
                 case_data = case_helper.get_case_by_id(case_id)
 
             # --- Assertions for get case ---
             with allure.step("Verifying case data"):
                 assert case_data["id"] == case_id
-                assert case_data["name"] == CREATE_CASE_INPUT_1["conversationSafeFolder"]["name"]
-                assert case_data["description"] == CREATE_CASE_INPUT_1["conversationSafeFolder"]["description"]
+                assert case_data["name"] == create_input["conversationSafeFolder"]["name"]
+                assert case_data["description"] == create_input["conversationSafeFolder"]["description"]
                 assert case_data["isCaseManagement"] is True
 
         finally:
+            # --- Cleanup ---
             with allure.step("Deleting the case"):
                 if case_id:
                     case_helper.delete_case_by_id(case_id)
@@ -56,6 +68,7 @@ class TestGetCaseFlow:
         with allure.step("Verifying that the response is a list"):
             assert isinstance(all_cases, list), "Response should be a list"
 
+        # --- Assertions for each case ---
         with allure.step("Verifying the structure of each case"):
             for case in all_cases:
                 assert "id" in case, "Each case should have 'id'"

@@ -1,9 +1,10 @@
 import pytest
-from config.graphql_client import GraphQLClient
-from models.case_error import *
-from utils.case_helper import CaseHelper
-from variables.case_variables import *
 import allure
+from config.graphql_client import *
+from models.case_error import *
+from utils.case_helper import *
+from variables.case_variables import *
+from utils.test_data import *
 
 @pytest.fixture(scope="module")
 def client():
@@ -21,14 +22,27 @@ class TestDeleteCaseFlow:
 
         case_folder = None
         case_id = None
-        # --- Create case ---
+
+        # --- Input data for create case ---
+        create_input = build_create_case_input(
+            name=TEST_CASE_NAME_1,
+            description=TEST_CASE_DESCRIPTION,
+            case_status=TEST_CASE_STATUS_OPEN,
+            content_status=TEST_CASE_CONTENT_STATUS_NEW,
+            content_risk_rating=TEST_CASE_RISK_RATING_INFORMATION,
+            user_id="",
+            tenant_id=""
+        )
+        
+        # --- Create a case to be deleted ---
         with allure.step("Creating a new case to be deleted"):
-            case_folder = case_helper.create_case(CREATE_CASE_INPUT_1)
+            case_folder = case_helper.create_case(create_input)
             case_id = case_folder["id"]
 
-        # --- Delete the case ---
+        # --- Delete the created case ---
         with allure.step("Deleting the created case"):
-            delete_status, delete_typename = case_helper.delete_case_by_id(case_id)
+            delete_input = build_delete_case_input(case_id=case_id)
+            delete_status, delete_typename = case_helper.delete_case_by_id(delete_input["conversationSafeFolder"])
 
         # --- Assertions for delete ---
         with allure.step("Verifying the case was deleted"):

@@ -1,10 +1,11 @@
 import pytest
 import requests
-from config.graphql_client import GraphQLClient
-from models.case_error import *
-from utils.case_helper import CaseHelper
-from variables.case_variables import *
 import allure
+from config.graphql_client import *
+from models.case_error import *
+from utils.case_helper import *
+from variables.case_variables import *
+from utils.test_data import *
 
 @pytest.fixture(scope="module")
 def client():
@@ -19,13 +20,25 @@ class TestCreateCaseFlow:
     @allure.feature("Case Management")
     @allure.title("Create Case successfully")
     def test_create_case(self, case_helper):
-
+        
         case_folder = None
         case_id = None
         try:
-            # --- Create case  ---
+
+            # --- Input data for case ---
+            create_input = build_create_case_input(
+                name = TEST_CASE_NAME_1,
+                description = TEST_CASE_DESCRIPTION,
+                case_status = TEST_CASE_STATUS_OPEN,
+                content_status = TEST_CASE_CONTENT_STATUS_NEW,
+                content_risk_rating = TEST_CASE_RISK_RATING_INFORMATION,
+                user_id="",
+                tenant_id=""
+            )
+
+            # --- Create case ---
             with allure.step("Creating a new case"):
-                case_folder = case_helper.create_case(CREATE_CASE_INPUT_1)
+                case_folder = case_helper.create_case(create_input)
                 case_id = case_folder["id"]
 
             # --- Assertions for create ---
@@ -38,7 +51,7 @@ class TestCreateCaseFlow:
                     f"Expected text to be empty string, got: {case_folder['text']!r}"
 
         finally:
-            # Cleanup
+            # --- Cleanup ---
             with allure.step("Deleting the case"):
                 if case_id:
                     case_helper.delete_case_by_id(case_id)
@@ -51,14 +64,36 @@ class TestCreateCaseFlow:
         second_case_folder = None
         first_case_id = None
         try:
-            # --- Create first case ---
+            # --- Input data for the first case ---
+            first_case_input = build_create_case_input(
+                name=TEST_CASE_NAME_1,
+                description=TEST_CASE_DESCRIPTION,
+                case_status=TEST_CASE_STATUS_OPEN,
+                content_status=TEST_CASE_CONTENT_STATUS_NEW,
+                content_risk_rating=TEST_CASE_RISK_RATING_INFORMATION,
+                user_id="",
+                tenant_id=""
+            )
+
+            # --- Create the first case ---
             with allure.step("Creating the first case"):
-                first_case_folder = case_helper.create_case(CREATE_CASE_INPUT_1)
+                first_case_folder = case_helper.create_case(first_case_input)
                 first_case_id = first_case_folder["id"]
 
-            # --- Attempt to create second case with same name ---
+            # --- Input data for the second case ---
+                second_case_input = build_create_case_input(
+                    name=TEST_CASE_NAME_1,  
+                    description=TEST_CASE_DESCRIPTION,
+                    case_status=TEST_CASE_STATUS_OPEN,
+                    content_status=TEST_CASE_CONTENT_STATUS_NEW,
+                    content_risk_rating=TEST_CASE_RISK_RATING_INFORMATION,
+                    user_id="",
+                    tenant_id=""
+                )
+
+             # --- Create the second case ---
             with allure.step("Creating a second case with the same name"):
-                second_case_folder = case_helper.create_case(CREATE_CASE_INPUT_1)
+                second_case_folder = case_helper.create_case(second_case_input)
 
             # --- Assertions for duplicate case ---
             with allure.step("Verifying errors for duplicate case"):
@@ -70,7 +105,7 @@ class TestCreateCaseFlow:
                     f"Expected empty ID for duplicate case, got: {second_case_folder['id']!r}"
 
         finally:
-            # Cleanup
+            # --- Cleanup ---
             with allure.step("Deleting the first case"):
                 if first_case_id:
                     case_helper.delete_case_by_id(first_case_id)
@@ -80,8 +115,18 @@ class TestCreateCaseFlow:
     def test_create_case_empty_status(self, case_helper):
 
         error_response = None
-        input_data = CREATE_CASE_EMPTY_STATUS_INPUT.copy()
-        input_data["status"] = ""
+        
+        # --- Input data for case with empty status ---
+        input_data = build_create_case_input(
+            name=TEST_CASE_NAME_1,
+            description=TEST_CASE_DESCRIPTION,
+            case_status="",  
+            content_status=TEST_CASE_CONTENT_STATUS_NEW,
+            content_risk_rating=TEST_CASE_RISK_RATING_INFORMATION,
+            user_id="",
+            tenant_id=""
+        )
+
         try:
             # --- Create case with empty status ---
             with allure.step("Creating a case with empty status"):
@@ -103,7 +148,7 @@ class TestCreateCaseFlow:
                     if response.get("status") == "error":
                         error_response = GraphQLErrorResponse(**response)
 
-             # --- Assertions for case with empty status ---
+            # --- Assertions for case with empty status ---
             with allure.step("Verifying errors for case with empty status"):
                 assert error_response is not None, "Expected an error response when status is empty"
                 assert len(error_response.errors) > 0, "Expected at least one error"
@@ -117,14 +162,24 @@ class TestCreateCaseFlow:
                 assert error_response.data is None or \
                     error_response.data.get("createConversationSafeFolder") is None, \
                     "Expected no case to be created when status is empty"
-    
+        
     @allure.feature("Case Management")
     @allure.title("Create Case with error - empty initial content status")
     def test_create_case_empty_initial_content_status(self, case_helper):
 
         error_response = None
-        input_data = CREATE_CASE_EMPTY_INITIAL_CASE_CONTENT_STATUS_INPUT.copy()
-        input_data["contentStatus"] = ""
+
+        # --- Input data for case with empty initial content status ---
+        input_data = build_create_case_input(
+            name=TEST_CASE_NAME_1,
+            description=TEST_CASE_DESCRIPTION,
+            case_status=TEST_CASE_STATUS_OPEN,
+            content_status="", 
+            content_risk_rating=TEST_CASE_RISK_RATING_INFORMATION,
+            user_id="",
+            tenant_id=""
+        )
+
         try:
             # --- Create case with empty initial content status ---
             with allure.step("Creating a case with empty initial content status"):

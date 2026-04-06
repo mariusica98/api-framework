@@ -8,22 +8,19 @@ class CaseHelper:
     """
     def __init__(self, client):
         self.client = client
-
-    def create_case(self, input_data=None):
+    
+    def create_case(self, input_data):
         """
-        Creates a Case. Returns the created case object.
+        Creates a Case with the provided input data. Returns the created case object.
         """
-        if input_data is None:
-            input_data = CREATE_CASE_INPUT_1
         response = self.client.execute(CREATE_CASE_MUTATION, input_data)
         return response["data"]["createConversationSafeFolder"]
 
     def get_case_by_id(self, case_id):
         """
-        Retrieves a Case by its ID. Returns the case data.
+        Retrieves a Case by its ID.
         """
-        variables = GET_CASE_BY_ID_INPUT.copy()
-        variables["id"] = case_id
+        variables = build_get_case_by_id_input(case_id=case_id)
         response = self.client.execute(GET_CASE_BY_ID_QUERY, variables)
         return response["data"]["getConversationSafeFolder"]
 
@@ -48,27 +45,19 @@ class CaseHelper:
 
     def get_all_cases(self, filter="AllItems"):
         """
-        Retrieves all cases.
+        Retrieves all cases
         """
-        variables = {
-            "auth": {
-                "locale": "ro-RO",
-                "timeZone": -120,
-                "timeZoneId": "Europe/Bucharest"
-            },
-            "filter": filter
-        }
+        variables = build_get_all_cases_input(filter=filter)
         response = self.client.execute(GET_ALL_CASES_QUERY, variables)
         return response["data"].get("getConversationSafeFolders", [])
     
-    def update_case(self, case_id, update_data=None):
-        """ 
-        Updates a Case by id.
+    def update_case(self, case_id, update_data):
+        """
+        Update a case by id
         """
         if update_data is None:
-            update_data = UPDATE_CASE_INPUT.copy()
+            raise ValueError("update_data must be provided")
 
         update_data["conversationSafeFolder"]["id"] = case_id
         response = self.client.execute(UPDATE_CASE_MUTATION, update_data)
-
         return response["data"]["createConversationSafeFolder"]

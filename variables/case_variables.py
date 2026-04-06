@@ -1,252 +1,116 @@
-from utils.test_data import *
-
- # CREATE CASE INPUTS
-CREATE_CASE_INPUT_1 = {
-    "auth": {
-        "locale": "en-US",
-        "timeZone": -120,
-        "timeZoneId": "Europe/Bucharest"
-    },
-    "conversationSafeFolder": {
-        "id": "",
-        "name": TEST_CASE_NAME_1,
-        "description": TEST_CASE_DESCRIPTION,
-        "supervisors": [],
-        "conversations": [],
-        "userId": "",
-        "tenantId": "",
-        "visibilityDetails": {
-            "visibilityDetailsActive": False,
-            "visibilityDetailsTranscript": False,
-            "visibilityDetailsAnalytics": False,
-            "visibilityDetailsAnalyticsChange": False,
-            "visibilityDetailsMetadata": False,
-            "visibilityDetailsTTL": False,
-            "visibilityDetailsCustomFields": False,
-            "visibilityDetailsNotes": False,
-            "visibilityDetailsReplay": False,
-            "visibilityDetailsQM": False,
-            "visibilityCleanUp": False,
-            "visibilityExport": False
+def build_create_case_input(*, name, description, case_status, content_status, content_risk_rating, user_id, tenant_id):
+    return {
+        "auth": {
+            "locale": "en-US",
+            "timeZone": -120,
+            "timeZoneId": "Europe/Bucharest"
         },
-        "addConversations": False,
-        "removeConversations": False,
-        "exportFolders": False,
-        "allowedInPolicy": False,
-        "isCaseManagement": True,
-        "caseManagementDetails": {
-            "reviewers": [],
-            "observers": [],
-            "legalHold": False,
-            "caseStatus": "OPEN",
-            "contentStatus": "NEW",
-            "contentRiskRating": "Info",
-            "caseThreadId": ""
+        "conversationSafeFolder": {
+            "id": "",
+            "name": name,
+            "description": description,
+            "supervisors": [],
+            "conversations": [],
+            "userId": user_id,
+            "tenantId": tenant_id,
+            "visibilityDetails": {
+                "visibilityDetailsActive": False,
+                "visibilityDetailsTranscript": False,
+                "visibilityDetailsAnalytics": False,
+                "visibilityDetailsAnalyticsChange": False,
+                "visibilityDetailsMetadata": False,
+                "visibilityDetailsTTL": False,
+                "visibilityDetailsCustomFields": False,
+                "visibilityDetailsNotes": False,
+                "visibilityDetailsReplay": False,
+                "visibilityDetailsQM": False,
+                "visibilityCleanUp": False,
+                "visibilityExport": False
+            },
+            "addConversations": False,
+            "removeConversations": False,
+            "exportFolders": False,
+            "allowedInPolicy": False,
+            "isCaseManagement": True,
+            "caseManagementDetails": {
+                "reviewers": [],
+                "observers": [],
+                "legalHold": False,
+                "caseStatus": case_status,
+                "contentStatus": content_status,
+                "contentRiskRating": content_risk_rating,
+                "caseThreadId": ""
+            }
         }
     }
-}
 
-CREATE_CASE_EMPTY_STATUS_INPUT = {
-    "auth": {
-        "locale": "en-US",
-        "timeZone": -120,
-        "timeZoneId": "Europe/Bucharest"
-    },
-    "conversationSafeFolder": {
-        "id": "",
-        "name": TEST_CASE_NAME_1,
-        "description": TEST_CASE_DESCRIPTION,
-        "supervisors": [],
-        "conversations": [],
-        "userId": "",
-        "tenantId": "",
-        "visibilityDetails": {
-            "visibilityDetailsActive": False,
-            "visibilityDetailsTranscript": False,
-            "visibilityDetailsAnalytics": False,
-            "visibilityDetailsAnalyticsChange": False,
-            "visibilityDetailsMetadata": False,
-            "visibilityDetailsTTL": False,
-            "visibilityDetailsCustomFields": False,
-            "visibilityDetailsNotes": False,
-            "visibilityDetailsReplay": False,
-            "visibilityDetailsQM": False,
-            "visibilityCleanUp": False,
-            "visibilityExport": False
-        },
-        "addConversations": False,
-        "removeConversations": False,
-        "exportFolders": False,
-        "allowedInPolicy": False,
-        "isCaseManagement": True,
-        "caseManagementDetails": {
-            "reviewers": [],
-            "observers": [],
-            "legalHold": False,
-            "caseStatus": "",
-            "contentStatus": "NEW",
-            "contentRiskRating": "Info",
-            "caseThreadId": ""
+def build_delete_case_input(*, case_id):
+    return {
+        "conversationSafeFolder": case_id
+    }
+
+def build_get_case_by_id_input(*, case_id):
+    return {
+        "id": case_id,
+        "auth": {
+            "locale": "ro-RO",
+            "timeZone": -120,
+            "timeZoneId": "Europe/Bucharest"
         }
     }
-}
 
-CREATE_CASE_EMPTY_INITIAL_CASE_CONTENT_STATUS_INPUT = {
-    "auth": {
-        "locale": "en-US",
-        "timeZone": -120,
-        "timeZoneId": "Europe/Bucharest"
-    },
-    "conversationSafeFolder": {
-        "id": "",
-        "name": TEST_CASE_NAME_1,
-        "description": TEST_CASE_DESCRIPTION,
-        "supervisors": [],
-        "conversations": [],
-        "userId": "",
-        "tenantId": "",
-        "visibilityDetails": {
-            "visibilityDetailsActive": False,
-            "visibilityDetailsTranscript": False,
-            "visibilityDetailsAnalytics": False,
-            "visibilityDetailsAnalyticsChange": False,
-            "visibilityDetailsMetadata": False,
-            "visibilityDetailsTTL": False,
-            "visibilityDetailsCustomFields": False,
-            "visibilityDetailsNotes": False,
-            "visibilityDetailsReplay": False,
-            "visibilityDetailsQM": False,
-            "visibilityCleanUp": False,
-            "visibilityExport": False
+def build_get_all_cases_input(*, filter="AllItems"):
+    return {
+        "auth": {
+            "locale": "ro-RO",
+            "timeZone": -120,
+            "timeZoneId": "Europe/Bucharest"
         },
-        "addConversations": False,
-        "removeConversations": False,
-        "exportFolders": False,
-        "allowedInPolicy": False,
-        "isCaseManagement": True,
-        "caseManagementDetails": {
-            "reviewers": [],
-            "observers": [],
-            "legalHold": False,
-            "caseStatus": "OPEN",
-            "contentStatus": "",
-            "contentRiskRating": "Info",
-            "caseThreadId": ""
+        "filter": filter
+    }
+
+def build_update_case_input(*, name, description, case_status, content_status, content_risk_rating, user_id="", tenant_id=""):
+    return {
+        "auth": {
+            "locale": "en-US",
+            "timeZone": -120,
+            "timeZoneId": "Europe/Bucharest"
+        },
+        "conversationSafeFolder": {
+            "id": "",  
+            "name": name,
+            "description": description,
+            "supervisors": [],
+            "conversations": [],
+            "userId": user_id,
+            "tenantId": tenant_id,
+            "visibilityDetails": {
+                "visibilityDetailsActive": False,
+                "visibilityDetailsTranscript": False,
+                "visibilityDetailsAnalytics": False,
+                "visibilityDetailsAnalyticsChange": False,
+                "visibilityDetailsMetadata": False,
+                "visibilityDetailsTTL": False,
+                "visibilityDetailsCustomFields": False,
+                "visibilityDetailsNotes": False,
+                "visibilityDetailsReplay": False,
+                "visibilityDetailsQM": False,
+                "visibilityCleanUp": False,
+                "visibilityExport": False
+            },
+            "addConversations": False,
+            "removeConversations": False,
+            "exportFolders": False,
+            "allowedInPolicy": False,
+            "isCaseManagement": True,
+            "caseManagementDetails": {
+                "reviewers": [],
+                "observers": [],
+                "legalHold": False,
+                "caseStatus": case_status,
+                "contentStatus": content_status,
+                "contentRiskRating": content_risk_rating,
+                "caseThreadId": ""
+            }
         }
     }
-}   
-
-CREATE_CASE_INPUT_2 = {
-    "auth": {
-        "locale": "en-US",
-        "timeZone": -120,
-        "timeZoneId": "Europe/Bucharest"
-    },
-    "conversationSafeFolder": {
-        "id": "",
-        "name": TEST_CASE_NAME_2,
-        "description": TEST_CASE_DESCRIPTION,
-        "supervisors": [],
-        "conversations": [],
-        "userId": "",
-        "tenantId": "",
-        "visibilityDetails": {
-            "visibilityDetailsActive": False,
-            "visibilityDetailsTranscript": False,
-            "visibilityDetailsAnalytics": False,
-            "visibilityDetailsAnalyticsChange": False,
-            "visibilityDetailsMetadata": False,
-            "visibilityDetailsTTL": False,
-            "visibilityDetailsCustomFields": False,
-            "visibilityDetailsNotes": False,
-            "visibilityDetailsReplay": False,
-            "visibilityDetailsQM": False,
-            "visibilityCleanUp": False,
-            "visibilityExport": False
-        },
-        "addConversations": False,
-        "removeConversations": False,
-        "exportFolders": False,
-        "allowedInPolicy": False,
-        "isCaseManagement": True,
-        "caseManagementDetails": {
-            "reviewers": [],
-            "observers": [],
-            "legalHold": False,
-            "caseStatus": "OPEN",
-            "contentStatus": "NEW",
-            "contentRiskRating": "Info",
-            "caseThreadId": ""
-        }
-    }
-}
-
-# GET CASES INPUTS
-GET_CASE_BY_ID_INPUT = {
-    "id": None, 
-    "auth": {
-        "locale": "ro-RO",
-        "timeZone": -120,
-        "timeZoneId": "Europe/Bucharest"
-    }
-}
-
-GET_ALL_CASES_INPUT = {
-    "auth": {
-        "locale": "ro-RO",
-        "timeZone": -120,
-        "timeZoneId": "Europe/Bucharest"
-    },
-    "filter": "AllItems"
-}
-
-# DELETE CASE INPUTS
-DELETE_CASE_BY_ID_INPUT_TEMPLATE = {
-    "conversationSafeFolder": None  
-}
-
-# UPDATE CASE INPUTS
-UPDATE_CASE_INPUT = {
-    "auth": {
-        "locale": "en-US",
-        "timeZone": -120,
-        "timeZoneId": "Europe/Bucharest"
-    },
-    "conversationSafeFolder": {
-        "id": "",  
-        "name": TEST_CASE_NAME_UPDATED,  
-        "description": TEST_CASE_DESCRIPTION_UPDATED, 
-        "supervisors": [],
-        "conversations": [],
-        "userId":TEST_USER_ID,
-        "tenantId": TEST_TENANT_ID,
-        "visibilityDetails": {
-            "visibilityDetailsActive": False,
-            "visibilityDetailsTranscript": False,
-            "visibilityDetailsAnalytics": False,
-            "visibilityDetailsAnalyticsChange": False,
-            "visibilityDetailsMetadata": False,
-            "visibilityDetailsTTL": False,
-            "visibilityDetailsCustomFields": False,
-            "visibilityDetailsNotes": False,
-            "visibilityDetailsReplay": False,
-            "visibilityDetailsQM": False,
-            "visibilityCleanUp": False,
-            "visibilityExport": False
-        },
-        "addConversations": False,
-        "removeConversations": False,
-        "exportFolders": False,
-        "allowedInPolicy": False,
-        "isCaseManagement": True,
-        "caseManagementDetails": {
-            "reviewers": [],
-            "observers": [],
-            "legalHold": False,
-            "caseStatus": TEST_CASE_STATUS_IN_PROGRESS,
-            "contentStatus": TEST_CASE_CONTENT_STATUS_ESCALED,
-            "contentRiskRating": TEST_CASE_RISK_RATING_ADHERANCE,
-            "caseThreadId": ""
-        }
-    }
-}
