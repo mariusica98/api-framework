@@ -30,13 +30,22 @@ class TestUpdateCaseFlow:
             # ---- Update case ---
             with allure.step("Updating the case"):
                 case_helper.update_case(case_id, UPDATE_CASE_INPUT)
+            
+            # --- Assertions for update case ---
+            with allure.step("Verifying updated case response"):
+                assert isinstance(case_id, str) and case_id != "", \
+                    f"Expected non-empty string for id, got: {case_id!r}"
+                assert case_folder["status"] == "ok", \
+                    f"Expected status 'ok', got: {case_folder['status']!r}"
+                assert case_folder["text"] == "", \
+                    f"Expected text to be empty string, got: {case_folder['text']!r}"
 
-            # --- Get case by ID for verification ---
-            with allure.step("Getting case by ID"):
+            # --- Get case by ID for full verification ---
+            with allure.step("Getting case by ID (for full verification)"):
                 case_data = case_helper.get_case_by_id(case_id)
 
-            # --- Assertions for full verification ---
-            with allure.step("Verifying case data"):
+            # --- Assertions for full verification (because the response from the update does not contain all the necessary data) ---
+            with allure.step("Verify all the updated case data"):
                 assert case_data["id"] == case_id
                 assert case_data["name"] == TEST_CASE_UPDATED_NAME
                 assert case_data["description"] == TEST_CASE_DESCRIPTION_UPDATED
