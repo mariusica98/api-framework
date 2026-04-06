@@ -4,6 +4,7 @@ from config.graphql_client import GraphQLClient
 from models.case_error import *
 from utils.case_helper import CaseHelper
 from variables.case_variables import *
+from utils.test_data import *
 
 @pytest.fixture(scope="module")
 def client():
@@ -24,7 +25,7 @@ class TestUpdateCaseFlow:
         try:
             # --- Create case ---
             with allure.step("Creating a case to be updated"):
-                case_folder = case_helper.create_case(CREATE_CASE_INPUT)
+                case_folder = case_helper.create_case(CREATE_CASE_INPUT_1)
                 case_id = case_folder["id"]
 
             # ---- Update case ---
@@ -47,7 +48,7 @@ class TestUpdateCaseFlow:
             # --- Assertions for full verification (because the response from the update does not contain all the necessary data) ---
             with allure.step("Verify all the updated case data"):
                 assert case_data["id"] == case_id
-                assert case_data["name"] == TEST_CASE_UPDATED_NAME
+                assert case_data["name"] == TEST_CASE_NAME_UPDATED
                 assert case_data["description"] == TEST_CASE_DESCRIPTION_UPDATED
 
                 cmd = case_data["caseManagementDetails"]
@@ -71,22 +72,21 @@ class TestUpdateCaseFlow:
         case_id = case_id_2 = None
         try:
             # --- Create first case ---
-            with allure.step("Creating a case to be updated"):
-                case_folder = case_helper.create_case(CREATE_CASE_INPUT)
+            with allure.step("Creating first case"):
+                case_folder = case_helper.create_case(CREATE_CASE_INPUT_1)
                 case_id = case_folder["id"]
 
             # --- Create second case  ---
-            with allure.step("Creating another case with duplicate name"):
-                case_folder_2 = case_helper.create_case(CREATE_CASE_FOR_UPDATE_DUPLICATE_NAME_INPUT)
+            with allure.step("Creating the second case"):
+                case_folder_2 = case_helper.create_case(CREATE_CASE_INPUT_2)
                 case_id_2 = case_folder_2["id"]
 
             # --- Update with duplicate name ---
             with allure.step("Updating the second case with the first case's name"):
-                response = case_helper.update_case(case_id_2, CREATE_CASE_INPUT)
+                response = case_helper.update_case(case_id_2, CREATE_CASE_INPUT_1)
 
-            # --- Assertions for update case ---
+            # --- Assertions for update with duplicate name error ---
             with allure.step("Verifying the response for duplicate name error"):
-                # --- Assertions for duplicate name error ---
                 assert response["status"] == "error", "Expected error status"
                 assert response["text"] == "nameDuplicatedError", "Expected nameDuplicatedError text"
 

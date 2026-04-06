@@ -25,7 +25,7 @@ class TestCreateCaseFlow:
         try:
             # --- Create case  ---
             with allure.step("Creating a new case"):
-                case_folder = case_helper.create_case(CREATE_CASE_INPUT)
+                case_folder = case_helper.create_case(CREATE_CASE_INPUT_1)
                 case_id = case_folder["id"]
 
             # --- Assertions for create ---
@@ -53,12 +53,12 @@ class TestCreateCaseFlow:
         try:
             # --- Create first case ---
             with allure.step("Creating the first case"):
-                first_case_folder = case_helper.create_case(CREATE_CASE_INPUT)
+                first_case_folder = case_helper.create_case(CREATE_CASE_INPUT_1)
                 first_case_id = first_case_folder["id"]
 
             # --- Attempt to create second case with same name ---
             with allure.step("Creating a second case with the same name"):
-                second_case_folder = case_helper.create_case(CREATE_CASE_INPUT)
+                second_case_folder = case_helper.create_case(CREATE_CASE_INPUT_1)
 
             # --- Assertions for duplicate case ---
             with allure.step("Verifying errors for duplicate case"):

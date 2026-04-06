@@ -1,7 +1,7 @@
 import pytest
 from config.graphql_client import GraphQLClient
 from utils.case_helper import CaseHelper
-from variables.case_variables import CREATE_CASE_INPUT
+from variables.case_variables import CREATE_CASE_INPUT_1
 from utils.test_data import *
 from models.case_error import *
 import allure
@@ -25,7 +25,7 @@ class TestGetCaseFlow:
         try:
             # --- Create case  ---
             with allure.step("Creating a new case for GET"):
-                case_folder = case_helper.create_case(CREATE_CASE_INPUT)
+                case_folder = case_helper.create_case(CREATE_CASE_INPUT_1)
                 case_id = case_folder["id"]
 
             # --- Get case  ---
@@ -35,8 +35,8 @@ class TestGetCaseFlow:
             # --- Assertions for get case ---
             with allure.step("Verifying case data"):
                 assert case_data["id"] == case_id
-                assert case_data["name"] == CREATE_CASE_INPUT["conversationSafeFolder"]["name"]
-                assert case_data["description"] == CREATE_CASE_INPUT["conversationSafeFolder"]["description"]
+                assert case_data["name"] == CREATE_CASE_INPUT_1["conversationSafeFolder"]["name"]
+                assert case_data["description"] == CREATE_CASE_INPUT_1["conversationSafeFolder"]["description"]
                 assert case_data["isCaseManagement"] is True
 
         finally:

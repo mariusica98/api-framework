@@ -1,7 +1,7 @@
 from utils.test_data import *
 
  # CREATE CASE INPUTS
-CREATE_CASE_INPUT = {
+CREATE_CASE_INPUT_1 = {
     "auth": {
         "locale": "en-US",
         "timeZone": -120,
@@ -9,7 +9,7 @@ CREATE_CASE_INPUT = {
     },
     "conversationSafeFolder": {
         "id": "",
-        "name": TEST_CASE_NAME,
+        "name": TEST_CASE_NAME_1,
         "description": TEST_CASE_DESCRIPTION,
         "supervisors": [],
         "conversations": [],
@@ -54,7 +54,7 @@ CREATE_CASE_EMPTY_STATUS_INPUT = {
     },
     "conversationSafeFolder": {
         "id": "",
-        "name": TEST_CASE_NAME,
+        "name": TEST_CASE_NAME_1,
         "description": TEST_CASE_DESCRIPTION,
         "supervisors": [],
         "conversations": [],
@@ -99,7 +99,7 @@ CREATE_CASE_EMPTY_INITIAL_CASE_CONTENT_STATUS_INPUT = {
     },
     "conversationSafeFolder": {
         "id": "",
-        "name": TEST_CASE_NAME,
+        "name": TEST_CASE_NAME_1,
         "description": TEST_CASE_DESCRIPTION,
         "supervisors": [],
         "conversations": [],
@@ -136,7 +136,7 @@ CREATE_CASE_EMPTY_INITIAL_CASE_CONTENT_STATUS_INPUT = {
     }
 }   
 
-CREATE_CASE_FOR_UPDATE_DUPLICATE_NAME_INPUT = {
+CREATE_CASE_INPUT_2 = {
     "auth": {
         "locale": "en-US",
         "timeZone": -120,
@@ -144,7 +144,7 @@ CREATE_CASE_FOR_UPDATE_DUPLICATE_NAME_INPUT = {
     },
     "conversationSafeFolder": {
         "id": "",
-        "name": TEST_CASE_NAME_DUPLICATE,
+        "name": TEST_CASE_NAME_2,
         "description": TEST_CASE_DESCRIPTION,
         "supervisors": [],
         "conversations": [],
@@ -214,7 +214,7 @@ UPDATE_CASE_INPUT = {
     },
     "conversationSafeFolder": {
         "id": "",  
-        "name": TEST_CASE_UPDATED_NAME,  
+        "name": TEST_CASE_NAME_UPDATED,  
         "description": TEST_CASE_DESCRIPTION_UPDATED, 
         "supervisors": [],
         "conversations": [],

@@ -14,7 +14,7 @@ class CaseHelper:
         Creates a Case. Returns the created case object.
         """
         if input_data is None:
-            input_data = CREATE_CASE_INPUT
+            input_data = CREATE_CASE_INPUT_1
         response = self.client.execute(CREATE_CASE_MUTATION, input_data)
         return response["data"]["createConversationSafeFolder"]
 

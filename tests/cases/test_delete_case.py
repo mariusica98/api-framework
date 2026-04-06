@@ -23,7 +23,7 @@ class TestDeleteCaseFlow:
         case_id = None
         # --- Create case ---
         with allure.step("Creating a new case to be deleted"):
-            case_folder = case_helper.create_case(CREATE_CASE_INPUT)
+            case_folder = case_helper.create_case(CREATE_CASE_INPUT_1)
             case_id = case_folder["id"]
 
         # --- Delete the case ---
