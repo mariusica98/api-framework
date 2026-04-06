@@ -88,6 +88,7 @@ query getAllCSFolders($auth: AuthInput, $filter: String) {
 }
 """
 
+# UPDATE CASE QUERIES
 UPDATE_CASE_MUTATION = """
 mutation ent(
   $auth: AuthInput!
