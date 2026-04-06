@@ -41,7 +41,7 @@ class TestDeleteCaseFlow:
 
         # --- Verify the case is no longer retrievable ---
         with allure.step("Verifying the case cannot be retrieved after deletion"):
-            case_data = case_helper.get_case_by_id(TEST_INVALID_CASE_ID)
+            case_data = case_helper.get_case_by_id(case_id)
             actual_case = GetCaseNonExistingIdResponse(**case_data)
 
         # --- Expected empty/error case ---

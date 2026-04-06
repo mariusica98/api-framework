@@ -16,8 +16,8 @@ def case_helper(client):
 class TestUpdateCaseFlow:
 
     @allure.feature("Case Management")
-    @allure.title("Get Case by ID successfully with full verification")
-    def test_get_case_by_id(self, case_helper):
+    @allure.title("Update Case successfully")
+    def test_update_case(self, case_helper):
 
         case_folder = None
         case_id = None
@@ -45,7 +45,6 @@ class TestUpdateCaseFlow:
 
             # --- Assertions for full verification ---
             with allure.step("Verifying case data"):
-                # General info
                 assert case_data["id"] == case_id
                 assert case_data["name"] == TEST_CASE_UPDATED_NAME
                 assert case_data["description"] == TEST_CASE_DESCRIPTION_UPDATED

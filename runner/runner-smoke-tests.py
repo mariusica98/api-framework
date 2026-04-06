@@ -6,7 +6,8 @@ import os
 tests_to_run = [
     "tests/cases/test_add_case.py",
     "tests/cases/test_get_case.py",
-    "tests/cases/test_delete_case.py"
+    "tests/cases/test_delete_case.py",
+    "tests/cases/test_update_case.py"
 ]
 
 allure_dir = "allure-results"
