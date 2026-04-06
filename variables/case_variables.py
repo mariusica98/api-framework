@@ -155,7 +155,7 @@ GET_ALL_CASES_INPUT = {
     "filter": "AllItems"
 }
 
-# DELETE CASE INPUT
+# DELETE CASE INPUTS
 DELETE_CASE_BY_ID_INPUT_TEMPLATE = {
     "conversationSafeFolder": None  
 }
