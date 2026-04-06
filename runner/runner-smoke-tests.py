@@ -2,7 +2,9 @@ import time
 import pytest
 import shutil
 import os
+import json
 
+# --- List all tests to run ---
 tests_to_run = [
     "tests/cases/test_add_case.py",
     "tests/cases/test_get_case.py",
@@ -12,15 +14,49 @@ tests_to_run = [
 
 allure_dir = "allure-results"
 
+# --- Environment variables ---
+env_vars = {
+    "OS": "Windows 11",
+    "Host": "Stage"
+}
+
+# --- Allure tests categories ---
+categories = [
+    {
+        "name": "Smoke Tests",
+        "matchedTags": ["smoke"]
+    }
+]
+
+# --- Executor info ---
+executor_info = {
+    "name": "Local API Tests",
+    "type": "pytest",
+    "url": "https://stage-graph.asc-recording.app/graphql",
+}
+
 if __name__ == "__main__":
     start_time = time.perf_counter()
 
-    # --- Cleanup allure-results before each run ---
+    # --- Clean the allure-results directory ---
     if os.path.exists(allure_dir):
         shutil.rmtree(allure_dir)
     os.makedirs(allure_dir, exist_ok=True)
 
-    # --- Run pytest with Allure output ---
+    # --- Create environment.properties ---
+    with open(os.path.join(allure_dir, "environment.properties"), "w") as f:
+        for k, v in env_vars.items():
+            f.write(f"{k}={v}\n")
+
+    # --- Create categories.json ---
+    with open(os.path.join(allure_dir, "categories.json"), "w") as f:
+        json.dump(categories, f, indent=4)
+
+    # --- Create executor.json ---
+    with open(os.path.join(allure_dir, "executor.json"), "w") as f:
+        json.dump(executor_info, f, indent=4)
+
+    # --- Run tests with pytest and Allure ---
     exit_code = pytest.main(tests_to_run + ["-v", "-s", f"--alluredir={allure_dir}"])
 
     end_time = time.perf_counter()
