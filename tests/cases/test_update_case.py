@@ -27,17 +27,9 @@ class TestUpdateCaseFlow:
                 case_folder = case_helper.create_case(CREATE_CASE_INPUT)
                 case_id = case_folder["id"]
 
-            # --- Prepare data for Update case ---
-            update_data = UPDATE_CASE_INPUT.copy()
-            update_data["conversationSafeFolder"]["id"] = case_id
-            update_data["conversationSafeFolder"]["name"] = TEST_CASE_UPDATED_NAME
-            update_data["conversationSafeFolder"]["description"] = TEST_CASE_DESCRIPTION_UPDATED
-            update_data["conversationSafeFolder"]["userId"] = TEST_USER_ID
-            update_data["conversationSafeFolder"]["tenantId"] = TEST_TENANT_ID
-
             # ---- Update case ---
             with allure.step("Updating the case"):
-                case_helper.update_case(case_id, update_data)
+                case_helper.update_case(case_id, UPDATE_CASE_INPUT)
 
             # --- Get case by ID for verification ---
             with allure.step("Getting case by ID"):

@@ -173,8 +173,8 @@ UPDATE_CASE_INPUT = {
         "description": TEST_CASE_DESCRIPTION_UPDATED, 
         "supervisors": [],
         "conversations": [],
-        "userId": "",
-        "tenantId": "",
+        "userId":TEST_USER_ID,
+        "tenantId": TEST_TENANT_ID,
         "visibilityDetails": {
             "visibilityDetailsActive": False,
             "visibilityDetailsTranscript": False,
