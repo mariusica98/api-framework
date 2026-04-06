@@ -136,6 +136,51 @@ CREATE_CASE_EMPTY_INITIAL_CASE_CONTENT_STATUS_INPUT = {
     }
 }   
 
+CREATE_CASE_FOR_UPDATE_DUPLICATE_NAME_INPUT = {
+    "auth": {
+        "locale": "en-US",
+        "timeZone": -120,
+        "timeZoneId": "Europe/Bucharest"
+    },
+    "conversationSafeFolder": {
+        "id": "",
+        "name": TEST_CASE_NAME_DUPLICATE,
+        "description": TEST_CASE_DESCRIPTION,
+        "supervisors": [],
+        "conversations": [],
+        "userId": "",
+        "tenantId": "",
+        "visibilityDetails": {
+            "visibilityDetailsActive": False,
+            "visibilityDetailsTranscript": False,
+            "visibilityDetailsAnalytics": False,
+            "visibilityDetailsAnalyticsChange": False,
+            "visibilityDetailsMetadata": False,
+            "visibilityDetailsTTL": False,
+            "visibilityDetailsCustomFields": False,
+            "visibilityDetailsNotes": False,
+            "visibilityDetailsReplay": False,
+            "visibilityDetailsQM": False,
+            "visibilityCleanUp": False,
+            "visibilityExport": False
+        },
+        "addConversations": False,
+        "removeConversations": False,
+        "exportFolders": False,
+        "allowedInPolicy": False,
+        "isCaseManagement": True,
+        "caseManagementDetails": {
+            "reviewers": [],
+            "observers": [],
+            "legalHold": False,
+            "caseStatus": "OPEN",
+            "contentStatus": "NEW",
+            "contentRiskRating": "Info",
+            "caseThreadId": ""
+        }
+    }
+}
+
 # GET CASES INPUTS
 GET_CASE_BY_ID_INPUT = {
     "id": None, 

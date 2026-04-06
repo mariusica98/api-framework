@@ -62,3 +62,39 @@ class TestUpdateCaseFlow:
             with allure.step("Deleting the case"):
                 if case_id:
                     case_helper.delete_case_by_id(case_id)
+    
+    @allure.feature("Case Management")
+    @allure.title("Update Case with error - duplicate name")
+    def test_update_case_with_duplicate_name(self, case_helper):
+
+        case_folder = case_folder_2 = None
+        case_id = case_id_2 = None
+        try:
+            # --- Create first case ---
+            with allure.step("Creating a case to be updated"):
+                case_folder = case_helper.create_case(CREATE_CASE_INPUT)
+                case_id = case_folder["id"]
+
+            # --- Create second case  ---
+            with allure.step("Creating another case with duplicate name"):
+                case_folder_2 = case_helper.create_case(CREATE_CASE_FOR_UPDATE_DUPLICATE_NAME_INPUT)
+                case_id_2 = case_folder_2["id"]
+
+            # --- Update with duplicate name ---
+            with allure.step("Updating the second case with the first case's name"):
+                response = case_helper.update_case(case_id_2, CREATE_CASE_INPUT)
+
+            # --- Assertions for update case ---
+            with allure.step("Verifying the response for duplicate name error"):
+                # --- Assertions for duplicate name error ---
+                assert response["status"] == "error", "Expected error status"
+                assert response["text"] == "nameDuplicatedError", "Expected nameDuplicatedError text"
+
+        finally:
+            # --- Cleanup ---
+            if case_id or case_id_2:
+                with allure.step("Deleting the cases"):
+                    if case_id:
+                        case_helper.delete_case_by_id(case_id)
+                    if case_id_2:
+                        case_helper.delete_case_by_id(case_id_2)

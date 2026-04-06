@@ -62,13 +62,13 @@ class CaseHelper:
         return response["data"].get("getConversationSafeFolders", [])
     
     def update_case(self, case_id, update_data=None):
-        """
-        Updates a Case given its ID.
+        """ 
+        Updates a Case by id.
         """
         if update_data is None:
             update_data = UPDATE_CASE_INPUT.copy()
 
         update_data["conversationSafeFolder"]["id"] = case_id
-
         response = self.client.execute(UPDATE_CASE_MUTATION, update_data)
+
         return response["data"]["createConversationSafeFolder"]

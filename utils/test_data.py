@@ -6,6 +6,7 @@ TEST_USER_ID = "32d3161b-f419-4571-8fa4-931fa972f4a8"
 
 ### Cases ####
 TEST_CASE_NAME = "Test Case using Automation Script"
+TEST_CASE_NAME_DUPLICATE = "Test Case using Automation Script 1"
 TEST_CASE_UPDATED_NAME = "Test Case using Automation Script - Updated"
 TEST_CASE_DESCRIPTION = "Verifies that a case is created successfully via automation script."
 TEST_CASE_DESCRIPTION_UPDATED = "Verifies that a case is updated successfully via automation script."
