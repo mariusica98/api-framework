@@ -1,5 +1,8 @@
 {
   "T03": {
     "endpoint": "https://devt03-graph.asc-recording.dev/graphql"
+  },
+  "Stage": {
+    "endpoint": "https://stage-graph.asc-recording.app/graphql"
   }
 }

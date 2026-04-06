@@ -87,3 +87,19 @@ query getAllCSFolders($auth: AuthInput, $filter: String) {
   }
 }
 """
+
+UPDATE_CASE_MUTATION = """
+mutation ent(
+  $auth: AuthInput!
+  $conversationSafeFolder: ConversationSafeFolderInputType!
+) {
+  createConversationSafeFolder(
+    input: $auth
+    conversationSafeFolder: $conversationSafeFolder
+  ) {
+    id
+    text
+    status
+  }
+}
+"""
