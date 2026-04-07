@@ -1,3 +1,7 @@
+
+from utils.test_data import *
+
+# Functions to build input data for case operations
 def build_create_case_input(*, name, description, case_status, content_status, content_risk_rating, user_id, tenant_id):
     return {
         "auth": {
@@ -114,3 +118,14 @@ def build_update_case_input(*, name, description, case_status, content_status, c
             }
         }
     }
+
+# Default parameters for creating a case input
+DEFAULT_CASE_INPUT_PARAMS = {
+    "name": TEST_CASE_NAME_1,
+    "description": TEST_CASE_DESCRIPTION,
+    "case_status": TEST_CASE_STATUS_OPEN,
+    "content_status": TEST_CASE_CONTENT_STATUS_NEW,
+    "content_risk_rating": TEST_CASE_RISK_RATING_INFORMATION,
+    "user_id": "",
+    "tenant_id": ""
+}

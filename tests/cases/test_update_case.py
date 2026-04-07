@@ -23,16 +23,8 @@ class TestUpdateCaseFlow:
         case_folder = None
         case_id = None
         try:
-            #--- Input data for creating a case to be updated ---
-            create_input = build_create_case_input(
-                name=TEST_CASE_NAME_1,
-                description=TEST_CASE_DESCRIPTION,
-                case_status=TEST_CASE_STATUS_OPEN,
-                content_status=TEST_CASE_CONTENT_STATUS_NEW,
-                content_risk_rating=TEST_CASE_RISK_RATING_INFORMATION,
-                user_id="",
-                tenant_id=""
-            )
+            #--- Prepare default case input data ---
+            create_input = build_create_case_input(**DEFAULT_CASE_INPUT_PARAMS)
 
             #--- Create a case to be updated ---
             with allure.step("Creating a case to be updated"):
@@ -80,32 +72,16 @@ class TestUpdateCaseFlow:
         case_folder_1 = case_folder_2 = None
         case_id_1 = case_id_2 = None
         try:
-            # --- Input data for creating first case ---
-            create_input_1 = build_create_case_input(
-                name=TEST_CASE_NAME_1,
-                description=TEST_CASE_DESCRIPTION,
-                case_status=TEST_CASE_STATUS_OPEN,
-                content_status=TEST_CASE_CONTENT_STATUS_NEW,
-                content_risk_rating=TEST_CASE_RISK_RATING_INFORMATION,
-                user_id="",
-                tenant_id=""
-            )
+            # --- Prepare default case input data for first case ---
+            create_input_1 = build_create_case_input(**DEFAULT_CASE_INPUT_PARAMS)
 
             #--- Create first case ---
             with allure.step("Creating first case"):
                 case_folder_1 = case_helper.create_case(create_input_1)
                 case_id_1 = case_folder_1["id"]
 
-            # --- Input data for creating second case ---
-            create_input_2 = build_create_case_input(
-                name=TEST_CASE_NAME_2,
-                description=TEST_CASE_DESCRIPTION,
-                case_status=TEST_CASE_STATUS_OPEN,
-                content_status=TEST_CASE_CONTENT_STATUS_NEW,
-                content_risk_rating=TEST_CASE_RISK_RATING_INFORMATION,
-                user_id="",
-                tenant_id=""
-            )
+            # --- Prepare case input data for second case ---
+            create_input_2 = build_create_case_input(**{**DEFAULT_CASE_INPUT_PARAMS, "name": TEST_CASE_NAME_2})
             
             #--- Create second case ---
             with allure.step("Creating the second case"):

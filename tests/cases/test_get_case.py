@@ -23,16 +23,8 @@ class TestGetCaseFlow:
         case_folder = None
         case_id = None
         try:
-            #-- Input data for creating a case ---
-            create_input = build_create_case_input(
-                name=TEST_CASE_NAME_1,
-                description=TEST_CASE_DESCRIPTION,
-                case_status=TEST_CASE_STATUS_OPEN,
-                content_status=TEST_CASE_CONTENT_STATUS_NEW,
-                content_risk_rating=TEST_CASE_RISK_RATING_INFORMATION,
-                user_id="",
-                tenant_id=""
-            )
+            #-- Prepare default case input data ---
+            create_input = build_create_case_input(**DEFAULT_CASE_INPUT_PARAMS)
 
             #-- Create case ---
             with allure.step("Creating a new case for GET"):
