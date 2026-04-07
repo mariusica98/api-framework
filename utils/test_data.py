@@ -1,5 +1,8 @@
 import uuid
 
+### General testing data ###
+TEST_API_DASHBOARD_ID = "cd0a2fa0-bae3-e34b-165c-d78f65353b58"
+
 ### General user data ###
 TEST_TENANT_ID = "44796316-f1ac-427a-8ab9-257aed02a531"
 TEST_USER_ID = "32d3161b-f419-4571-8fa4-931fa972f4a8"
@@ -17,3 +20,8 @@ TEST_CASE_CONTENT_STATUS_NEW = "NEW"
 TEST_CASE_CONTENT_STATUS_ESCALED = "ESCALATED"
 TEST_CASE_RISK_RATING_ADHERANCE = "Adherence"
 TEST_CASE_RISK_RATING_INFORMATION = "Info"
+
+### Reports ###
+TEST_REPORT_ID = str(uuid.uuid4())
+TEST_REPORT_TITLE = "Test Report using Automation Script"
+TEST_REPORT_CASE_COMPLIANCE_RATE_KPI = "CaseComplianceRate"
