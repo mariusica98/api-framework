@@ -25,3 +25,4 @@ TEST_CASE_RISK_RATING_INFORMATION = "Info"
 TEST_REPORT_ID = str(uuid.uuid4())
 TEST_REPORT_TITLE = "Test Report using Automation Script"
 TEST_REPORT_CASE_COMPLIANCE_RATE_KPI = "CaseComplianceRate"
+TEST_REPORT_OVERALL_COMPLIANCE_RATE_KPI = "OverallComplianceRate"
