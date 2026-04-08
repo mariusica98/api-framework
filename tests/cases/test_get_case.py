@@ -4,7 +4,7 @@ from config.graphql_client import *
 from utils.case_helper import *
 from variables.case_variables import *
 from utils.test_data import *
-from models.case_error import *
+from error_models.case_error_model import *
 
 @pytest.fixture(scope="module")
 def client():
