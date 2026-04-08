@@ -2,7 +2,20 @@
 from utils.test_data import *
 
 # Functions to build input data for case operations
-def build_create_case_input(*, name, description, case_status, content_status, content_risk_rating, user_id, tenant_id):
+def build_create_case_input(
+    *,
+    name,
+    description,
+    case_status,
+    content_status,
+    content_risk_rating,
+    user_id,
+    tenant_id,
+    conversations=None
+):
+    if conversations is None:
+        conversations = []
+
     return {
         "auth": {
             "locale": "en-US",
@@ -14,7 +27,7 @@ def build_create_case_input(*, name, description, case_status, content_status, c
             "name": name,
             "description": description,
             "supervisors": [],
-            "conversations": [],
+            "conversations": conversations,
             "userId": user_id,
             "tenantId": tenant_id,
             "visibilityDetails": {
