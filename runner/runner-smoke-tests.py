@@ -10,7 +10,8 @@ tests_to_run = [
     "tests/cases/test_get_case.py",
     "tests/cases/test_delete_case.py",
     "tests/cases/test_update_case.py",
-    "tests/reports/test_add_report.py"
+    "tests/reports/test_add_report.py",
+    "tests/records/test_add_record_to_case.py"
 ]
 
 allure_dir = "allure-results"
