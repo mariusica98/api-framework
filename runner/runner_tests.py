@@ -6,12 +6,12 @@ import json
 
 # --- List all tests to run ---
 tests_to_run = [
-    "tests/cases/test_add_case.py",
-    "tests/cases/test_get_case.py",
-    "tests/cases/test_delete_case.py",
-    "tests/cases/test_update_case.py",
-    "tests/reports/test_add_report.py",
-    "tests/records/test_add_record_to_case.py",
+    "tests/smoke/cases/test_add_case.py",
+    "tests/smoke/cases/test_get_case.py",
+    "tests/smoke/cases/test_delete_case.py",
+    "tests/smoke/cases/test_update_case.py",
+    "tests/smoke/reports/test_add_report.py",
+    "tests/smoke/records/test_add_record_to_case.py",
     "tests/security/test_cases_security.py"
 ]
 
