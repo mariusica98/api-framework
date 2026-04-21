@@ -2,7 +2,6 @@ import uuid
 
 ### General testing data ###
 TEST_API_DASHBOARD_ID = "cd0a2fa0-bae3-e34b-165c-d78f65353b58"
-TEST_RECORD_ID = "0500b580-c02c-4bb3-9cad-c2d4a5187717"
 
 ### General user data ###
 TEST_TENANT_ID = "44796316-f1ac-427a-8ab9-257aed02a531"
@@ -27,3 +26,8 @@ TEST_REPORT_ID = str(uuid.uuid4())
 TEST_REPORT_TITLE = "Test Report using Automation Script"
 TEST_REPORT_CASE_COMPLIANCE_RATE_KPI = "CaseComplianceRate"
 TEST_REPORT_OVERALL_COMPLIANCE_RATE_KPI = "OverallComplianceRate"
+
+### Records ###
+TEST_RECORD_ID = "0100b580-eaed-4271-9680-eedade32458f"
+TEST_RECORD_EXPORT_ZIP_ID = "12345678"
+TEST_RECORD_EXPORT_ZIP_NAME = "recordExport"

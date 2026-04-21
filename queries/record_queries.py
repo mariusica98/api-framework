@@ -36,3 +36,28 @@ mutation bulkCaseManagementMutation(
   }
 }
 """
+
+# EXPORT RECORD QUERIES
+BULK_EXPORT_RECORDS_MUTATION = """
+mutation ent(
+  $auth: AuthInput,
+  $listId: [String]!,
+  $zipPassword: String,
+  $bulkName: String,
+  $onlyTranscript: Boolean,
+  $onlyMetadata: Boolean,
+  $includeMailBody: Boolean,
+  $includeMailAttachemnts: Boolean
+) {
+  bulkExport(
+    input: $auth,
+    listId: $listId,
+    zipPassword: $zipPassword,
+    bulkName: $bulkName,
+    onlyTranscript: $onlyTranscript,
+    onlyMetadata: $onlyMetadata,
+    includeMailBody: $includeMailBody,
+    includeMailAttachemnts: $includeMailAttachemnts
+  )
+}
+"""

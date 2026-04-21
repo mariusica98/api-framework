@@ -1,5 +1,5 @@
 
-from queries.record_queries import ADD_RECORD_TO_CASE_MUTATION, REMOVE_RECORD_FROM_CASE_MUTATION
+from queries.record_queries import ADD_RECORD_TO_CASE_MUTATION, BULK_EXPORT_RECORDS_MUTATION, REMOVE_RECORD_FROM_CASE_MUTATION
 
 class RecordHelper:
     """
@@ -17,5 +17,15 @@ class RecordHelper:
         return response["data"]["createConversationSafeFolder"]
     
     def remove_record_from_case(self, input_data):
+        """
+        Removes a conversation (record) from an existing case.
+        """
         response = self.client.execute(REMOVE_RECORD_FROM_CASE_MUTATION, input_data)
         return response["data"]["bulkCaseManagementMutation"]
+
+    def bulk_export_records(self, input_data):
+        """
+        Exports records based on the provided input data.
+        """
+        response = self.client.execute(BULK_EXPORT_RECORDS_MUTATION, input_data)
+        return response["data"]["bulkExport"]

@@ -63,6 +63,31 @@ def build_remove_record_case_input(*, conversation_ids, case_id):
         "riskRating": None
     }
 
+def build_bulk_export_input(
+    *,
+    list_id,
+    zip_password,
+    bulk_name,
+    only_transcript,
+    only_metadata,
+    include_mail_body,
+    include_mail_attachments
+):
+    return {
+        "auth": {
+            "locale": "ro-RO",
+            "timeZone": -180,
+            "timeZoneId": "Europe/Bucharest"
+        },
+        "listId": list_id,
+        "zipPassword": zip_password,
+        "bulkName": bulk_name,
+        "onlyTranscript": only_transcript,
+        "onlyMetadata": only_metadata,
+        "includeMailBody": include_mail_body,
+        "includeMailAttachemnts": include_mail_attachments
+    }
+
 # Default parameters for add record to case input
 DEFAULT_ADD_RECORD_CASE_PARAMS = {
     "name": TEST_CASE_NAME_1,
@@ -74,4 +99,15 @@ DEFAULT_ADD_RECORD_CASE_PARAMS = {
     "user_id": "",
     "tenant_id": "",
     "case_id": ""
+}
+
+# Default parameters for bulk export input
+DEFAULT_BULK_EXPORT_PARAMS = {
+    "list_id": [],
+    "zip_password": TEST_RECORD_EXPORT_ZIP_ID,
+    "bulk_name": TEST_RECORD_EXPORT_ZIP_NAME,
+    "only_transcript": False,
+    "only_metadata": False,
+    "include_mail_body": True,
+    "include_mail_attachments": True
 }
