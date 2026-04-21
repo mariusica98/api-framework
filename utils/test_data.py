@@ -2,7 +2,7 @@ import uuid
 
 ### General testing data ###
 TEST_API_DASHBOARD_ID = "cd0a2fa0-bae3-e34b-165c-d78f65353b58"
-TEST_RECORD_ID = "0400b580-fb8c-4021-a7fb-192bde57f9c7"
+TEST_RECORD_ID = "0500b580-c02c-4bb3-9cad-c2d4a5187717"
 
 ### General user data ###
 TEST_TENANT_ID = "44796316-f1ac-427a-8ab9-257aed02a531"

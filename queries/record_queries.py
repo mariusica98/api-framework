@@ -15,3 +15,24 @@ mutation ent(
   }
 }
 """
+
+# REMOVE RECORD FROM CASE QUERY
+REMOVE_RECORD_FROM_CASE_MUTATION = """
+mutation bulkCaseManagementMutation(
+  $auth: AuthInput,
+  $conversationId: [String],
+  $selectedFolders: [String],
+  $action: String,
+  $riskRating: String
+) {
+  bulkCaseManagementMutation(
+    input: $auth,
+    conversationId: $conversationId,
+    selectedFolders: $selectedFolders,
+    action: $action,
+    riskRating: $riskRating
+  ) {
+    status
+  }
+}
+"""

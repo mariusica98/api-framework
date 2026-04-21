@@ -50,6 +50,19 @@ def build_add_record_case_input(*, name, description, case_status, content_statu
         }
     }
 
+def build_remove_record_case_input(*, conversation_ids, case_id):
+    return {
+        "auth": {
+            "locale": "en-US",
+            "timeZone": -120,
+            "timeZoneId": "Europe/Bucharest"
+        },
+        "conversationId": conversation_ids,
+        "selectedFolders": [case_id],
+        "action": "remove",
+        "riskRating": None
+    }
+
 # Default parameters for add record to case input
 DEFAULT_ADD_RECORD_CASE_PARAMS = {
     "name": TEST_CASE_NAME_1,

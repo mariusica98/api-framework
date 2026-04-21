@@ -1,5 +1,5 @@
 
-from queries.record_queries import ADD_RECORD_TO_CASE_MUTATION
+from queries.record_queries import ADD_RECORD_TO_CASE_MUTATION, REMOVE_RECORD_FROM_CASE_MUTATION
 
 class RecordHelper:
     """
@@ -15,3 +15,7 @@ class RecordHelper:
         """
         response = self.client.execute(ADD_RECORD_TO_CASE_MUTATION, input_data)
         return response["data"]["createConversationSafeFolder"]
+    
+    def remove_record_from_case(self, input_data):
+        response = self.client.execute(REMOVE_RECORD_FROM_CASE_MUTATION, input_data)
+        return response["data"]["bulkCaseManagementMutation"]
