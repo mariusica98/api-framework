@@ -61,3 +61,15 @@ mutation ent(
   )
 }
 """
+
+# GET RECORD BY ID QUERY
+GET_RECORD_BY_ID_QUERY = """
+query ent($id: ID!, $auth: AuthInput, $callStartMs: String, $isHistoryVault: Boolean) {
+  getEntry(input: $auth, id: $id, callStartMs: $callStartMs, isHistoryVault: $isHistoryVault) {
+    id
+    conversationId
+    topic
+    duration
+  }
+}
+"""

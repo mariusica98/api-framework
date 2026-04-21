@@ -88,6 +88,18 @@ def build_bulk_export_input(
         "includeMailAttachemnts": include_mail_attachments
     }
 
+def build_get_record_by_id_input(*, record_id, call_start_ms=None, is_history_vault=False):
+    return {
+        "id": record_id,
+        "auth": {
+            "locale": "ro-RO",
+            "timeZone": -180,
+            "timeZoneId": "Europe/Bucharest"
+        },
+        "callStartMs": call_start_ms,
+        "isHistoryVault": is_history_vault
+    }
+
 # Default parameters for add record to case input
 DEFAULT_ADD_RECORD_CASE_PARAMS = {
     "name": TEST_CASE_NAME_1,

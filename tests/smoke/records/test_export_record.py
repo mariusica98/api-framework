@@ -22,7 +22,7 @@ class TestBulkExportRecords:
     @allure.title("Bulk export records successfully")
     def test_bulk_export_records(self, record_helper):
 
-         # --- Create input for bulk export ---
+        # --- Create input for bulk export ---
         with allure.step("Prepare bulk export input"):
             params = DEFAULT_BULK_EXPORT_PARAMS.copy()
             params.update({

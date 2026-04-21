@@ -1,5 +1,5 @@
 
-from queries.record_queries import ADD_RECORD_TO_CASE_MUTATION, BULK_EXPORT_RECORDS_MUTATION, REMOVE_RECORD_FROM_CASE_MUTATION
+from queries.record_queries import ADD_RECORD_TO_CASE_MUTATION, BULK_EXPORT_RECORDS_MUTATION, GET_RECORD_BY_ID_QUERY, REMOVE_RECORD_FROM_CASE_MUTATION
 
 class RecordHelper:
     """
@@ -29,3 +29,10 @@ class RecordHelper:
         """
         response = self.client.execute(BULK_EXPORT_RECORDS_MUTATION, input_data)
         return response["data"]["bulkExport"]
+    
+    def get_record_by_id(self, input_data):
+        """
+        Retrieves a record by its ID.
+        """
+        response = self.client.execute(GET_RECORD_BY_ID_QUERY, input_data)
+        return response["data"]["getEntry"]
