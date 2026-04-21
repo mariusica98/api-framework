@@ -105,7 +105,7 @@ def build_get_all_records_input(
     val="",
     filter=None,
     with_save=False,
-    path=DEFAULT_RECORDS_PATH,
+    path=TEST_DEFAULT_RECORDS_PATH,
     search_in=None
 ):
     if search_in is None:

@@ -33,4 +33,4 @@ TEST_RECORD_INVALID_ID = str(uuid.uuid4())
 TEST_RECORD_EXPORT_ZIP_ID = "12345678"
 TEST_RECORD_EXPORT_ZIP_NAME = "recordExport"
 TEST_RECORD_TOPIC_NAME = "TestUser20 Dev2ASC - Marius Gaitan"
-DEFAULT_RECORDS_PATH = "https://stage-teams.asc-recording.app/"
+TEST_DEFAULT_RECORDS_PATH = "https://stage-teams.asc-recording.app/"
