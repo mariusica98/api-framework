@@ -37,7 +37,25 @@ class TestGetRecordById:
             assert response["duration"] and response["duration"] != ""
     
     @allure.feature("Records")
-    @allure.title("Get all records - basic validation")
+    @allure.title("Get record by ID with error - invalid record ID")
+    def test_get_record_by_invalid_id(self, record_helper):
+
+        # --- Input for invalid record ID ---
+        with allure.step("Build input for invalid record ID"):
+            input_data = build_get_record_by_id_input(
+                record_id=TEST_RECORD_INVALID_ID
+            )
+
+        # --- Execute query ---
+        with allure.step("Execute get record by invalid ID query"):
+            response = record_helper.get_record_by_id(input_data)
+
+        # --- Assertion for get record by invalid ID ---
+        with allure.step("Validate response for invalid record ID is None"):
+            assert response is None
+
+    @allure.feature("Records")
+    @allure.title("Get all records successfully")
     def test_get_all_records(self, record_helper):
 
         # --- Input for get all records ---
