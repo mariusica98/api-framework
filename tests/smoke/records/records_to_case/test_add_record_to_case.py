@@ -1,9 +1,9 @@
 import pytest
 import allure
 from config.graphql_client import *
-from utils.case_helper import *
+from utils.conversation_safe_folder_helper import *
 from utils.record_helper import *
-from variables.case_variables import *
+from variables.conversation_safe_folder_variables import *
 from utils.test_data import *
 from variables.record_variables import DEFAULT_ADD_RECORD_CASE_PARAMS, build_add_record_case_input
 

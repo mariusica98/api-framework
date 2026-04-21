@@ -1,5 +1,5 @@
-from queries.case_queries import *
-from variables.case_variables import *
+from queries.conversation_safe_folder_queries import *
+from variables.conversation_safe_folder_variables import *
 
 class CaseHelper:
     """
