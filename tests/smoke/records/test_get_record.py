@@ -35,3 +35,40 @@ class TestGetRecordById:
             assert response["conversationId"] == TEST_RECORD_ID
             assert response["topic"] == TEST_RECORD_TOPIC_NAME
             assert response["duration"] and response["duration"] != ""
+    
+    @allure.feature("Records")
+    @allure.title("Get all records - basic validation")
+    def test_get_all_records(self, record_helper):
+
+        # --- Input for get all records ---
+        with allure.step("Create input for get all records"):
+            input_data = build_get_all_records_input()
+
+        # --- Execute get all records query ---
+        with allure.step("Execute get all records query"):
+            response = record_helper.get_all_records(input_data)
+
+        # --- Assertions for get all records list---
+        with allure.step("Validate get all records response list"):
+            assert "days" in response
+            assert isinstance(response["days"], list)
+            assert len(response["days"]) > 0
+        
+        # --- Assertions for first record in the list ---
+        with allure.step("Validate first day content exists"):
+            first_day = response["days"][0]
+            assert "content" in first_day
+            assert isinstance(first_day["content"], list)
+            assert len(first_day["content"]) > 0
+        
+        # --- Assertions for first record structure ---
+        with allure.step("Validate first record structure"):
+            first_record = first_day["content"][0]
+            assert first_record["id"]
+            assert first_record["conversationId"]
+            assert first_record["topic"]
+            assert first_record["duration"]
+            assert first_record["id"] != ""
+            assert first_record["conversationId"] != ""
+            assert first_record["topic"] != ""
+            assert first_record["duration"] != ""

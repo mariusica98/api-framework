@@ -100,6 +100,30 @@ def build_get_record_by_id_input(*, record_id, call_start_ms=None, is_history_va
         "isHistoryVault": is_history_vault
     }
 
+def build_get_all_records_input(
+    *,
+    val="",
+    filter=None,
+    with_save=False,
+    path=DEFAULT_RECORDS_PATH,
+    search_in=None
+):
+    if search_in is None:
+        search_in = []
+
+    return {
+        "val": val,
+        "filter": filter,
+        "withSave": with_save,
+        "auth": {
+            "locale": "ro-RO",
+            "timeZone": -180,
+            "timeZoneId": "Europe/Bucharest"
+        },
+        "path": path,
+        "searchIn": search_in
+    }
+
 # Default parameters for add record to case input
 DEFAULT_ADD_RECORD_CASE_PARAMS = {
     "name": TEST_CASE_NAME_1,

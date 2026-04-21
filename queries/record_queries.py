@@ -73,3 +73,34 @@ query ent($id: ID!, $auth: AuthInput, $callStartMs: String, $isHistoryVault: Boo
   }
 }
 """
+
+# GET ALL RECORDS QUERY
+GET_ALL_RECORDS_QUERY = """
+query getFilterRecordings(
+  $val: String!,
+  $filter: RecordingFilterInputType,
+  $withSave: Boolean,
+  $auth: AuthInput,
+  $path: String,
+  $searchIn: [String]
+) {
+  getFilterRecordings(
+    search: $val,
+    filter: $filter,
+    withSave: $withSave,
+    input: $auth,
+    path: $path,
+    searchIn: $searchIn
+  ) {
+    days {
+      date
+      content {
+        id
+        conversationId
+        topic
+        duration
+      }
+    }
+  }
+}
+"""

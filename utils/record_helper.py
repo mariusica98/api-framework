@@ -1,5 +1,5 @@
 
-from queries.record_queries import ADD_RECORD_TO_CASE_MUTATION, BULK_EXPORT_RECORDS_MUTATION, GET_RECORD_BY_ID_QUERY, REMOVE_RECORD_FROM_CASE_MUTATION
+from queries.record_queries import ADD_RECORD_TO_CASE_MUTATION, BULK_EXPORT_RECORDS_MUTATION, GET_ALL_RECORDS_QUERY, GET_RECORD_BY_ID_QUERY, REMOVE_RECORD_FROM_CASE_MUTATION
 
 class RecordHelper:
     """
@@ -36,3 +36,7 @@ class RecordHelper:
         """
         response = self.client.execute(GET_RECORD_BY_ID_QUERY, input_data)
         return response["data"]["getEntry"]
+
+    def get_all_records(self, input_data):
+        response = self.client.execute(GET_ALL_RECORDS_QUERY, input_data)
+        return response["data"]["getFilterRecordings"]
