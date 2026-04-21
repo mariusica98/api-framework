@@ -15,7 +15,6 @@ def client():
 def record_helper(client):
     return RecordHelper(client)
 
-
 class TestBulkExportRecords:
 
     @allure.feature("Records")
