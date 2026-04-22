@@ -46,3 +46,42 @@ class TestCreateFolderFlow:
             with allure.step("Deleting folder"):
                 if folder_id:
                     folder_helper.delete_folder_by_id(folder_id)
+
+    @allure.feature("Folder Management")
+    @allure.title("Create Folder with error - duplicate name")
+    def test_create_duplicate_folder(self, folder_helper):
+
+        first_folder = None
+        second_folder = None
+        first_folder_id = None
+        try:
+            # --- Input data for the first folder ---
+            first_folder_input = build_create_folder_input(**DEFAULT_FOLDER_INPUT_PARAMS)
+
+            # --- Create the first folder ---
+            with allure.step("Creating the first folder"):
+                first_folder = folder_helper.create_folder(first_folder_input)
+                first_folder_id = first_folder["id"]
+
+            # --- Input data for the second folder (same name) ---
+            second_folder_input = build_create_folder_input(**DEFAULT_FOLDER_INPUT_PARAMS)
+
+            # --- Create the second folder ---
+            with allure.step("Creating a second folder with the same name"):
+                second_folder = folder_helper.create_folder(second_folder_input)
+
+            # --- Assertions for duplicate folder ---
+            with allure.step("Verifying errors for duplicate folder"):
+                assert second_folder["status"] == "error", \
+                    f"Expected status 'error' for duplicate folder, got: {second_folder['status']!r}"
+                assert second_folder["text"] == "nameDuplicatedError", \
+                    f"Expected text 'nameDuplicatedError', got: {second_folder['text']!r}"
+                assert second_folder["id"] == "", \
+                    f"Expected empty ID for duplicate folder, got: {second_folder['id']!r}"
+
+        finally:
+            # --- Cleanup ---
+            with allure.step("Deleting the first folder"):
+                if first_folder_id:
+                    folder_helper.delete_folder_by_id(first_folder_id)
+        
