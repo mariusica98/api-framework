@@ -65,6 +65,51 @@ def build_get_folder_by_id_input(*, folder_id):
         }
     }
 
+def build_update_folder_input(
+    *,
+    name,
+    description,
+    folder_id,
+    export_folders,
+    user_id="",
+    tenant_id=""
+):
+    return {
+        "auth": {
+            "locale": "ro-RO",
+            "timeZone": -180,
+            "timeZoneId": "Europe/Bucharest"
+        },
+        "conversationSafeFolder": {
+            "id": folder_id,
+            "name": name,
+            "description": description,
+            "supervisors": [],
+            "conversations": [],
+            "userId": user_id,
+            "tenantId": tenant_id,
+            "visibilityDetails": {
+                "visibilityDetailsActive": False,
+                "visibilityDetailsTranscript": False,
+                "visibilityDetailsAnalytics": False,
+                "visibilityDetailsAnalyticsChange": False,
+                "visibilityDetailsMetadata": False,
+                "visibilityDetailsTTL": False,
+                "visibilityDetailsCustomFields": False,
+                "visibilityDetailsNotes": False,
+                "visibilityDetailsReplay": False,
+                "visibilityDetailsQM": False,
+                "visibilityCleanUp": False,
+                "visibilityExport": False
+            },
+            "addConversations": False,
+            "removeConversations": False,
+            "exportFolders": export_folders,
+            "allowedInPolicy": False,
+            "isCaseManagement": False
+        }
+    }
+
 # Default parameters for creating a folder input
 DEFAULT_FOLDER_INPUT_PARAMS = {
     "name": TEST_FOLDER_NAME,

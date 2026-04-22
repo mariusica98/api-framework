@@ -36,6 +36,10 @@ class FolderHelper:
 
         return status, typename
 
+    def update_folder(self, input_data):
+        response = self.client.execute(UPDATE_FOLDER_MUTATION, input_data)
+        return response["data"]["createConversationSafeFolder"]
+
     def get_conversation_safe_folder_by_id(self, folder_id):
             """
             Get Conversation Safe Folder by ID

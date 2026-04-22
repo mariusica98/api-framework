@@ -76,3 +76,21 @@ query getConversationSafeFolder($id: String, $auth: AuthInput) {
   }
 }
 """
+
+# UPDATE FOLDER MUTATION
+UPDATE_FOLDER_MUTATION = """
+mutation ent(
+  $auth: AuthInput,
+  $conversationSafeFolder: ConversationSafeFolderInputType
+) {
+  createConversationSafeFolder(
+    input: $auth,
+    conversationSafeFolder: $conversationSafeFolder
+  ) {
+    id
+    text
+    status
+    __typename
+  }
+}
+"""
