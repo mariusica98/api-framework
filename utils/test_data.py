@@ -24,6 +24,7 @@ TEST_CASE_RISK_RATING_INFORMATION = "Info"
 ### Folders ###
 TEST_FOLDER_NAME = "Test Folder using Automation Script"
 TEST_FOLDER_DESCRIPTION = "Verifies that a folder is created successfully via automation script."
+TEST_FOLDER_INVALID_ID = str(uuid.uuid4())
 
 ### Reports ###
 TEST_REPORT_ID = str(uuid.uuid4())
