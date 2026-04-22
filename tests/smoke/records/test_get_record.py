@@ -1,7 +1,7 @@
 import pytest
 import allure
 from config.graphql_client import *
-from utils.record_helper import *
+from utils.helper.record_helper import *
 from variables.record_variables import *
 from utils.test_data import *
 

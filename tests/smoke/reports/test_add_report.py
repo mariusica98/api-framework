@@ -1,9 +1,9 @@
 import pytest
 import allure
 import uuid
-from utils.report_helper import ReportHelper
-from utils.conversation_safe_folder_helper import CaseHelper
-from variables.conversation_safe_folder_variables import DEFAULT_CASE_INPUT_PARAMS, build_create_case_input
+from utils.helper.report_helper import ReportHelper
+from utils.helper.conversation_safe_folder_helper.case_helper import CaseHelper
+from variables.conversation_safe_variables.case_variables import DEFAULT_CASE_INPUT_PARAMS, build_create_case_input
 from variables.report_variables import DEFAULT_REPORT_INPUT_PARAMS, build_create_report_input
 from utils.test_data import *
 from config.graphql_client import GraphQLClient

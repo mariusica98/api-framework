@@ -1,7 +1,7 @@
 import pytest
 import allure
-from utils.conversation_safe_folder_helper import CaseHelper
-from variables.conversation_safe_folder_variables import *
+from utils.helper.conversation_safe_folder_helper.case_helper import CaseHelper
+from variables.conversation_safe_variables.case_variables import *
 from config.graphql_client_invalid_token import GraphQLClientNoToken
 
 @pytest.fixture(scope="function")

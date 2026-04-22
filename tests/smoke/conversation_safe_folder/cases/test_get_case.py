@@ -1,8 +1,8 @@
 import pytest
 import allure
 from config.graphql_client import *
-from utils.conversation_safe_folder_helper import *
-from variables.conversation_safe_folder_variables import *
+from utils.helper.conversation_safe_folder_helper.case_helper import *
+from variables.conversation_safe_variables.case_variables import *
 from utils.test_data import *
 from error_models.case_error_model import *
 
