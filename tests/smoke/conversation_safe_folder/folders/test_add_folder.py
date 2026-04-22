@@ -15,7 +15,6 @@ def client():
 def folder_helper(client):
     return FolderHelper(client)
 
-
 class TestCreateFolderFlow:
 
     @allure.feature("Folder Management")
@@ -43,6 +42,7 @@ class TestCreateFolderFlow:
                     f"Expected text to be empty string, got: {folder['text']!r}"
 
         finally:
-            # --- Cleanup (if needed later when delete exists) ---
-            with allure.step("Cleanup folder"):
-                pass
+            # --- cleanup ---
+            with allure.step("Deleting folder"):
+                if folder_id:
+                    folder_helper.delete_folder_by_id(folder_id)

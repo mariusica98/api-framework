@@ -15,3 +15,13 @@ mutation ent(
   }
 }
 """
+
+# DELETE FOLDER MUTATION
+DELETE_FOLDER_MUTATION = """
+mutation deleteCSFolder($conversationSafeFolder: String!) {
+  deleteConversationSafeFolder(id: $conversationSafeFolder) {
+    status
+    __typename
+  }
+}
+"""

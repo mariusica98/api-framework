@@ -50,6 +50,11 @@ def build_create_folder_input(
         }
     }
 
+def build_delete_folder_input(*, folder_id):
+    return {
+        "conversationSafeFolder": folder_id
+    }
+
 # Default parameters for creating a folder input
 DEFAULT_FOLDER_INPUT_PARAMS = {
     "name": TEST_FOLDER_NAME,

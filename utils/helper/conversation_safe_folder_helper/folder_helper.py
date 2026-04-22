@@ -16,3 +16,22 @@ class FolderHelper:
         """
         response = self.client.execute(CREATE_FOLDER_MUTATION, input_data)
         return response["data"]["createConversationSafeFolder"]
+
+    def delete_folder_by_id(self, folder_id):
+        """
+        Deletes a Folder by its ID.
+        """
+        if not folder_id:
+            return "skipped", None
+
+        payload = build_delete_folder_input(folder_id=folder_id)
+        response = self.client.execute(DELETE_FOLDER_MUTATION, payload)
+
+        result = response["data"]["deleteConversationSafeFolder"]
+        status = result["status"]
+        typename = result.get("__typename")
+
+        if status != "ok":
+            raise Exception(f"Failed to delete folder {folder_id}, got status: {status}")
+
+        return status, typename
