@@ -21,6 +21,10 @@ TEST_CASE_CONTENT_STATUS_ESCALED = "ESCALATED"
 TEST_CASE_RISK_RATING_ADHERANCE = "Adherence"
 TEST_CASE_RISK_RATING_INFORMATION = "Info"
 
+### Folders ###
+TEST_FOLDER_NAME = "Test Folder using Automation Script"
+TEST_FOLDER_DESCRIPTION = "Verifies that a folder is created successfully via automation script."
+
 ### Reports ###
 TEST_REPORT_ID = str(uuid.uuid4())
 TEST_REPORT_TITLE = "Test Report using Automation Script"
