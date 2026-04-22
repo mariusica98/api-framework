@@ -12,6 +12,7 @@ tests_to_run = [
     "tests/smoke/conversation_safe_folder/cases/test_update_case.py",
     "tests/smoke/conversation_safe_folder/folders/test_add_folder.py",
     "tests/smoke/conversation_safe_folder/folders/test_get_folder.py",
+    "tests/smoke/conversation_safe_folder/folders/test_update_folder.py",
     "tests/smoke/reports/test_add_report.py",
     "tests/smoke/records/records_to_case/test_add_record_to_case.py",
     "tests/smoke/records/records_to_case/test_remove_record_to_case.py",
