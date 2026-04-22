@@ -35,3 +35,21 @@ class FolderHelper:
             raise Exception(f"Failed to delete folder {folder_id}, got status: {status}")
 
         return status, typename
+
+    def get_conversation_safe_folder_by_id(self, folder_id):
+            """
+            Get Conversation Safe Folder by ID
+            """
+            if not folder_id:
+                return None
+
+            variables = build_get_folder_by_id_input(
+                folder_id=folder_id
+            )
+
+            response = self.client.execute(
+                GET_FOLDER_BY_ID_QUERY,
+                variables
+            )
+
+            return response["data"]["getConversationSafeFolder"]

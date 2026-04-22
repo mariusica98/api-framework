@@ -55,6 +55,16 @@ def build_delete_folder_input(*, folder_id):
         "conversationSafeFolder": folder_id
     }
 
+def build_get_folder_by_id_input(*, folder_id):
+    return {
+        "id": folder_id,
+        "auth": {
+            "locale": "ro-RO",
+            "timeZone": -180,
+            "timeZoneId": "Europe/Bucharest"
+        }
+    }
+
 # Default parameters for creating a folder input
 DEFAULT_FOLDER_INPUT_PARAMS = {
     "name": TEST_FOLDER_NAME,

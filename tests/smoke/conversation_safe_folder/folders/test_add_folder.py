@@ -17,7 +17,7 @@ def folder_helper(client):
 
 class TestCreateFolderFlow:
 
-    @allure.feature("Folder Management")
+    @allure.feature("Conversation Safe Folder")
     @allure.title("Create Folder successfully")
     def test_create_folder(self, folder_helper):
 
@@ -47,7 +47,7 @@ class TestCreateFolderFlow:
                 if folder_id:
                     folder_helper.delete_folder_by_id(folder_id)
 
-    @allure.feature("Folder Management")
+    @allure.feature("Conversation Safe Folder")
     @allure.title("Create Folder with error - duplicate name")
     def test_create_duplicate_folder(self, folder_helper):
 
