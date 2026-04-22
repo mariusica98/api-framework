@@ -1,4 +1,4 @@
-from queries.conversation_safe_folder.folder_queries import *
+from queries.conversation_safe_folder import *
 from variables.conversation_safe_variables.folder_variables import *
 
 class FolderHelper:
@@ -14,7 +14,7 @@ class FolderHelper:
         Creates a Folder with the provided input data.
         Returns the created folder object.
         """
-        response = self.client.execute(CREATE_FOLDER_MUTATION, input_data)
+        response = self.client.execute(UPSERT_CSF_MUTATION , input_data)
         return response["data"]["createConversationSafeFolder"]
 
     def delete_folder_by_id(self, folder_id):
@@ -25,7 +25,7 @@ class FolderHelper:
             return "skipped", None
 
         payload = build_delete_folder_input(folder_id=folder_id)
-        response = self.client.execute(DELETE_FOLDER_MUTATION, payload)
+        response = self.client.execute(DELETE_CSF_MUTATION, payload)
 
         result = response["data"]["deleteConversationSafeFolder"]
         status = result["status"]
@@ -37,7 +37,7 @@ class FolderHelper:
         return status, typename
 
     def update_folder(self, input_data):
-        response = self.client.execute(UPDATE_FOLDER_MUTATION, input_data)
+        response = self.client.execute(UPSERT_CSF_MUTATION , input_data)
         return response["data"]["createConversationSafeFolder"]
 
     def get_conversation_safe_folder_by_id(self, folder_id):
@@ -52,7 +52,7 @@ class FolderHelper:
             )
 
             response = self.client.execute(
-                GET_FOLDER_BY_ID_QUERY,
+                GET_CSF_BY_ID_QUERY,
                 variables
             )
 

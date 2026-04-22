@@ -1,6 +1,5 @@
-
-# CREATE CASE QUERIES
-CREATE_CASE_MUTATION = """
+# CREATE / EDIT CSF MUTATION
+UPSERT_CSF_MUTATION  = """
 mutation ent(
   $auth: AuthInput!
   $conversationSafeFolder: ConversationSafeFolderInputType!
@@ -16,9 +15,9 @@ mutation ent(
 }
 """
 
-# DELETE CASE QUERIES
-DELETE_CASE_MUTATION = """
-mutation deleteCSFolder($conversationSafeFolder: String!) {
+# DELETE CSF MUTATION
+DELETE_CSF_MUTATION = """
+mutation deleteCSF($conversationSafeFolder: String!) {
   deleteConversationSafeFolder(id: $conversationSafeFolder) {
     status
     __typename
@@ -26,9 +25,9 @@ mutation deleteCSFolder($conversationSafeFolder: String!) {
 }
 """
 
-# GET CASE QUERIES
-GET_CASE_BY_ID_QUERY = """
-query getConversationSafeFolder($id: String, $auth: AuthInput) {
+# GET CSF BY ID QUERY
+GET_CSF_BY_ID_QUERY = """
+query getCSF($id: String, $auth: AuthInput) {
   getConversationSafeFolder(id: $id, input: $auth) {
     id
     name
@@ -77,30 +76,14 @@ query getConversationSafeFolder($id: String, $auth: AuthInput) {
 }
 """
 
-GET_ALL_CASES_QUERY = """
-query getAllCSFolders($auth: AuthInput, $filter: String) {
+# GET ALL CSFs QUERY
+GET_ALL_CSFS_QUERY = """
+query getAllCSFs($auth: AuthInput, $filter: String) {
   getConversationSafeFolders(input: $auth, filter: $filter) {
     id
     name
     description
     isCaseManagement
-  }
-}
-"""
-
-# UPDATE CASE QUERIES
-UPDATE_CASE_MUTATION = """
-mutation ent(
-  $auth: AuthInput!
-  $conversationSafeFolder: ConversationSafeFolderInputType!
-) {
-  createConversationSafeFolder(
-    input: $auth
-    conversationSafeFolder: $conversationSafeFolder
-  ) {
-    id
-    text
-    status
   }
 }
 """

@@ -1,4 +1,4 @@
-from queries.conversation_safe_folder.case_queries import *
+from queries.conversation_safe_folder import *
 from variables.conversation_safe_variables.case_variables import *
 
 class CaseHelper:
@@ -13,7 +13,7 @@ class CaseHelper:
         """
         Creates a Case with the provided input data. Returns the created case object.
         """
-        response = self.client.execute(CREATE_CASE_MUTATION, input_data)
+        response = self.client.execute(UPSERT_CSF_MUTATION , input_data)
         return response["data"]["createConversationSafeFolder"]
 
     def get_case_by_id(self, case_id):
@@ -21,7 +21,7 @@ class CaseHelper:
         Retrieves a Case by its ID.
         """
         variables = build_get_case_by_id_input(case_id=case_id)
-        response = self.client.execute(GET_CASE_BY_ID_QUERY, variables)
+        response = self.client.execute(GET_CSF_BY_ID_QUERY, variables)
         return response["data"]["getConversationSafeFolder"]
 
     def delete_case_by_id(self, case_id):
@@ -32,7 +32,7 @@ class CaseHelper:
             return "skipped", None
 
         payload = {"conversationSafeFolder": case_id}
-        response = self.client.execute(DELETE_CASE_MUTATION, payload)
+        response = self.client.execute(DELETE_CSF_MUTATION, payload)
 
         result = response["data"]["deleteConversationSafeFolder"]
         status = result["status"]
@@ -48,7 +48,7 @@ class CaseHelper:
         Retrieves all cases
         """
         variables = build_get_all_cases_input(filter=filter)
-        response = self.client.execute(GET_ALL_CASES_QUERY, variables)
+        response = self.client.execute(GET_ALL_CSFS_QUERY, variables)
         return response["data"].get("getConversationSafeFolders", [])
     
     def update_case(self, case_id, update_data):
@@ -59,5 +59,5 @@ class CaseHelper:
             raise ValueError("update_data must be provided")
 
         update_data["conversationSafeFolder"]["id"] = case_id
-        response = self.client.execute(UPDATE_CASE_MUTATION, update_data)
+        response = self.client.execute(UPSERT_CSF_MUTATION , update_data)
         return response["data"]["createConversationSafeFolder"]
