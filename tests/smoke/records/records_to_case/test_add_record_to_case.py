@@ -22,8 +22,8 @@ def record_helper(client):
 class TestAddRecordToCaseFlow:
     
     @allure.feature("Records")
-    @allure.title("Add record to case successfully")
-    def test_add_record_to_case(self, case_helper, record_helper):
+    @allure.title("Add record to case successfully: CSF page")
+    def test_add_record_to_case_from_csf_page(self, case_helper, record_helper):
 
         case_id = None
         try:
@@ -44,9 +44,9 @@ class TestAddRecordToCaseFlow:
 
             add_record_input = build_add_record_case_input(**add_record_params)
 
-            # --- Add record to case ---
+            # --- Add record to case from case window ---
             with allure.step("Adding record to case"):
-                response_folder = record_helper.add_record_to_case(add_record_input)
+                response_folder = record_helper.add_record_to_csf(add_record_input)
 
             # --- Assertions for add record to case ---
             with allure.step("Verifying add record to case response"):
@@ -59,3 +59,5 @@ class TestAddRecordToCaseFlow:
             with allure.step("Deleting the case"):
                 if case_id:
                     case_helper.delete_case_by_id(case_id)
+    
+    # TODO: Add test: add record to case from record page: bulk(bulk operation)

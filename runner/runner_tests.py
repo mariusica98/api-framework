@@ -17,6 +17,7 @@ tests_to_run = [
     "tests/smoke/reports/test_add_report.py",
     "tests/smoke/records/records_to_case/test_add_record_to_case.py",
     "tests/smoke/records/records_to_case/test_remove_record_to_case.py",
+    "tests/smoke/records/records_to_folder/test_add_record_to_folder.py",
     "tests/smoke/records/test_export_record.py",
     "tests/smoke/records/test_get_record.py",
     "tests/security/test_cases_security.py"

@@ -1,5 +1,5 @@
 
-from queries.record_queries import ADD_RECORD_TO_CASE_MUTATION, BULK_EXPORT_RECORDS_MUTATION, GET_ALL_RECORDS_QUERY, GET_RECORD_BY_ID_QUERY, REMOVE_RECORD_FROM_CASE_MUTATION
+from queries.record_queries import ADD_RECORD_TO_CSF_MUTATION, BULK_EXPORT_RECORDS_MUTATION, GET_ALL_RECORDS_QUERY, GET_RECORD_BY_ID_QUERY, REMOVE_RECORD_FROM_CASE_MUTATION
 
 class RecordHelper:
     """
@@ -9,11 +9,11 @@ class RecordHelper:
     def __init__(self, client):
         self.client = client
 
-    def add_record_to_case(self, input_data):
+    def add_record_to_csf(self, input_data):
         """
         Adds a conversation (record) to an existing case.
         """
-        response = self.client.execute(ADD_RECORD_TO_CASE_MUTATION, input_data)
+        response = self.client.execute(ADD_RECORD_TO_CSF_MUTATION, input_data)
         return response["data"]["createConversationSafeFolder"]
     
     def remove_record_from_case(self, input_data):

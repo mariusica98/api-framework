@@ -22,8 +22,8 @@ def record_helper(client):
 class TestRemoveRecordFromCaseFlow:
 
     @allure.feature("Records")
-    @allure.title("Remove record from case successfully")
-    def test_remove_record_from_case(self, case_helper, record_helper):
+    @allure.title("Remove record from case successfully: Record page(bulk operation)")
+    def test_remove_record_from_case_from_record_page(self, case_helper, record_helper):
 
         case_id = None
         try:
@@ -47,7 +47,7 @@ class TestRemoveRecordFromCaseFlow:
 
             # --- Assertions for add record to case ---
             with allure.step("Adding record to case"):
-                record_helper.add_record_to_case(add_record_input)
+                record_helper.add_record_to_csf(add_record_input)
 
             # --- Input for remove record from case ---
             remove_input = build_remove_record_case_input(
@@ -55,7 +55,7 @@ class TestRemoveRecordFromCaseFlow:
                 case_id=case_id
             )
 
-            # --- Remove record from case ---
+            # --- Remove record from case from records bulk operation ---
             with allure.step("Removing record from case"):
                 response = record_helper.remove_record_from_case(remove_input)
 

@@ -1,6 +1,6 @@
 
 # ADD RECORD TO CASE QUERIES
-ADD_RECORD_TO_CASE_MUTATION = """
+ADD_RECORD_TO_CSF_MUTATION = """
 mutation ent(
   $auth: AuthInput!
   $conversationSafeFolder: ConversationSafeFolderInputType!

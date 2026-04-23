@@ -124,6 +124,66 @@ def build_get_all_records_input(
         "searchIn": search_in
     }
 
+def build_add_record_to_folder_input(
+    *,
+    name,
+    description,
+    conversations=None,
+    user_id="",
+    tenant_id="",
+    csf_id=""
+):
+    if conversations is None:
+        conversations = []
+
+    return {
+        "auth": {
+            "locale": "ro-RO",
+            "timeZone": -180,
+            "timeZoneId": "Europe/Bucharest"
+        },
+        "conversationSafeFolder": {
+            "id": csf_id,
+            "name": name,
+            "description": description,
+            "supervisors": [],
+            "conversations": conversations,
+            "userId": user_id,
+            "tenantId": tenant_id,
+
+            # 🔵 folder mode
+            "addConversations": False,
+            "removeConversations": False,
+            "exportFolders": False,
+            "allowedInPolicy": False,
+            "isCaseManagement": False,
+
+            "visibilityDetails": {
+                "visibilityDetailsActive": False,
+                "visibilityDetailsTranscript": True,
+                "visibilityDetailsAnalytics": True,
+                "visibilityDetailsAnalyticsChange": True,
+                "visibilityDetailsMetadata": True,
+                "visibilityDetailsTTL": True,
+                "visibilityDetailsCustomFields": True,
+                "visibilityDetailsNotes": True,
+                "visibilityDetailsReplay": True,
+                "visibilityDetailsQM": True,
+                "visibilityCleanUp": True,
+                "visibilityExport": True
+            }
+        }
+    }
+
+DEFAULT_ADD_RECORD_TO_FOLDER_PARAMS = {
+    "name": TEST_FOLDER_NAME,
+    "description": TEST_FOLDER_DESCRIPTION,
+    "conversations": [],
+    "user_id": "",
+    "tenant_id": "",
+    "csf_id": ""
+}
+
 # Default parameters for add record to case input
 DEFAULT_ADD_RECORD_CASE_PARAMS = {
     "name": TEST_CASE_NAME_1,
