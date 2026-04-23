@@ -3,7 +3,7 @@ from typing import List, Optional
 from attr import dataclass
 
 @dataclass
-class GetCaseNonExistingIdResponse:
+class GetCsfNonExistingIdResponse:
     id: Optional[str] = None
     name: Optional[str] = None
     description: Optional[str] = None

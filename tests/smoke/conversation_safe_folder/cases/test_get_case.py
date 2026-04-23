@@ -75,10 +75,10 @@ class TestGetCaseFlow:
         # --- Get non-existent case ---
         with allure.step("Getting case with error - non-existent ID"):
             case_data = case_helper.get_case_by_id(TEST_INVALID_CASE_ID)
-            actual_case = GetCaseNonExistingIdResponse(**case_data)
+            actual_case = GetCsfNonExistingIdResponse(**case_data)
 
         # --- Expected empty/error case ---
-        expected_case = GetCaseNonExistingIdResponse(
+        expected_case = GetCsfNonExistingIdResponse(
             id=None,
             name=None,
             description=None,

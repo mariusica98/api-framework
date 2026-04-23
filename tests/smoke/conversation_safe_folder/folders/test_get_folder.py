@@ -2,7 +2,7 @@ import pytest
 import allure
 
 from config.graphql_client import GraphQLClient
-from error_models.case_error_model import GetCaseNonExistingIdResponse
+from error_models.case_error_model import GetCsfNonExistingIdResponse
 from utils.helper.conversation_safe_folder_helper.folder_helper import FolderHelper
 from utils.test_data import TEST_FOLDER_INVALID_ID
 from variables.conversation_safe_variables.folder_variables import DEFAULT_FOLDER_INPUT_PARAMS, build_create_folder_input
@@ -57,10 +57,10 @@ class TestGetFolderFlow:
         # --- Get non-existent folder ---
         with allure.step("Attempting to get folder with non-existent ID"):
             response = folder_helper.get_conversation_safe_folder_by_id(TEST_FOLDER_INVALID_ID)
-            actual_folder = GetCaseNonExistingIdResponse(**response)
+            actual_folder = GetCsfNonExistingIdResponse(**response)
     
         # --- Expected empty/error folder ---
-        expected_folder = GetCaseNonExistingIdResponse(
+        expected_folder = GetCsfNonExistingIdResponse(
             id=None,
             name=None,
             description=None,
