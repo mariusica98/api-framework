@@ -67,3 +67,5 @@ class TestRemoveRecordFromFolderFlow:
             with allure.step("Deleting the folder"):
                 if folder_id:
                     folder_helper.delete_folder_by_id(folder_id)
+    
+    # --- The remove record from Folder to CSF page test is not necessary because it uses the same create/update folder endpoint

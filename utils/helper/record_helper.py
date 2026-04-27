@@ -1,5 +1,5 @@
 
-from queries.record_queries import ADD_RECORD_TO_CSF_MUTATION, BULK_EXPORT_RECORDS_MUTATION, GET_ALL_RECORDS_QUERY, GET_RECORD_BY_ID_QUERY, REMOVE_RECORD_FROM_CASE_MUTATION, REMOVE_RECORD_FROM_FOLDER_MUTATION
+from queries.record_queries import ADD_RECORD_TO_CSF_MUTATION, ADD_RECORD_TO_FOLDER_BULK_MUTATION, BULK_CASE_MANAGEMENT_MUTATION, BULK_EXPORT_RECORDS_MUTATION, GET_ALL_RECORDS_QUERY, GET_RECORD_BY_ID_QUERY, REMOVE_RECORD_FROM_CASE_MUTATION, REMOVE_RECORD_FROM_FOLDER_MUTATION
 
 class RecordHelper:
     """
@@ -16,6 +16,20 @@ class RecordHelper:
         response = self.client.execute(ADD_RECORD_TO_CSF_MUTATION, input_data)
         return response["data"]["createConversationSafeFolder"]
     
+    def add_record_to_case_bulk(self, input_data):
+        response = self.client.execute(
+            BULK_CASE_MANAGEMENT_MUTATION,
+            input_data
+        )
+        return response["data"]["bulkCaseManagementMutation"]
+
+    def add_record_to_folder_bulk(self, input_data):
+        response = self.client.execute(
+            ADD_RECORD_TO_FOLDER_BULK_MUTATION,
+            input_data
+        )
+        return response["data"]["bulkCoversationSafe"]
+
     def remove_record_from_case(self, input_data):
         """
         Removes a conversation (record) from an existing case.

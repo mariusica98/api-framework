@@ -187,6 +187,41 @@ def build_add_record_to_folder_input(
         }
     }
 
+def build_add_record_to_case_bulk_input(
+    *,
+    conversation_ids,
+    case_id,
+    risk_rating
+):
+    return {
+        "auth": {
+            "locale": "ro-RO",
+            "timeZone": -180,
+            "timeZoneId": "Europe/Bucharest"
+        },
+        "conversationId": conversation_ids,
+        "selectedFolders": [case_id],
+        "action": "add",
+        "riskRating": risk_rating
+    }
+
+def build_add_record_to_folder_bulk_input(
+    *,
+    conversation_ids,
+    folder_id
+):
+    return {
+        "auth": {
+            "locale": "ro-RO",
+            "timeZone": -180,
+            "timeZoneId": "Europe/Bucharest"
+        },
+        "conversationId": conversation_ids,
+        "selectedFolders": [folder_id],
+        "action": "add"
+    }
+
+# Default parameters for add record to folder input
 DEFAULT_ADD_RECORD_TO_FOLDER_PARAMS = {
     "name": TEST_FOLDER_NAME,
     "description": TEST_FOLDER_DESCRIPTION,

@@ -68,3 +68,5 @@ class TestRemoveRecordFromCaseFlow:
             with allure.step("Deleting the case"):
                 if case_id:
                     case_helper.delete_case_by_id(case_id)
+    
+    # --- The remove record from Case to CSF page test is not necessary because it uses the same create/update case endpoint

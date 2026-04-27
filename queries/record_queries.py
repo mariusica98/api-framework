@@ -1,5 +1,5 @@
 
-# ADD RECORD TO CASE QUERIES
+# ADD RECORD TO CASE QUERIES - CSF
 ADD_RECORD_TO_CSF_MUTATION = """
 mutation ent(
   $auth: AuthInput!
@@ -11,6 +11,46 @@ mutation ent(
   ) {
     id
     text
+    status
+  }
+}
+"""
+
+# ADD RECORD TO CASE QUERIES - BULK: RECORD PAGE
+BULK_CASE_MANAGEMENT_MUTATION = """
+mutation bulkCaseManagementMutation(
+  $auth: AuthInput,
+  $conversationId: [String],
+  $selectedFolders: [String],
+  $action: String,
+  $riskRating: String
+) {
+  bulkCaseManagementMutation(
+    input: $auth
+    conversationId: $conversationId
+    selectedFolders: $selectedFolders
+    action: $action
+    riskRating: $riskRating
+  ) {
+    status
+  }
+}
+"""
+
+# ADD RECORD TO FOLDER QUERIES - BULK: RECORD PAGE
+ADD_RECORD_TO_FOLDER_BULK_MUTATION = """
+mutation bulkFoldersMutation(
+  $auth: AuthInput,
+  $conversationId: [String],
+  $selectedFolders: [String],
+  $action: String
+) {
+  bulkCoversationSafe(
+    input: $auth
+    conversationId: $conversationId
+    selectedFolders: $selectedFolders
+    action: $action
+  ) {
     status
   }
 }
@@ -62,6 +102,7 @@ mutation ent(
 }
 """
 
+# REMOVE RECORD FROM FOLDER QUERY
 REMOVE_RECORD_FROM_FOLDER_MUTATION = """
 mutation bulkFoldersMutation(
   $auth: AuthInput,
