@@ -1,5 +1,5 @@
 
-from queries.record_queries import ADD_RECORD_TO_CSF_MUTATION, BULK_EXPORT_RECORDS_MUTATION, GET_ALL_RECORDS_QUERY, GET_RECORD_BY_ID_QUERY, REMOVE_RECORD_FROM_CASE_MUTATION
+from queries.record_queries import ADD_RECORD_TO_CSF_MUTATION, BULK_EXPORT_RECORDS_MUTATION, GET_ALL_RECORDS_QUERY, GET_RECORD_BY_ID_QUERY, REMOVE_RECORD_FROM_CASE_MUTATION, REMOVE_RECORD_FROM_FOLDER_MUTATION
 
 class RecordHelper:
     """
@@ -22,6 +22,13 @@ class RecordHelper:
         """
         response = self.client.execute(REMOVE_RECORD_FROM_CASE_MUTATION, input_data)
         return response["data"]["bulkCaseManagementMutation"]
+
+    def remove_record_from_folder(self, input_data):
+        response = self.client.execute(
+            REMOVE_RECORD_FROM_FOLDER_MUTATION,
+            input_data
+        )
+        return response["data"]["bulkCoversationSafe"]
 
     def bulk_export_records(self, input_data):
         """

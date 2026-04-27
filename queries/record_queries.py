@@ -62,6 +62,24 @@ mutation ent(
 }
 """
 
+REMOVE_RECORD_FROM_FOLDER_MUTATION = """
+mutation bulkFoldersMutation(
+  $auth: AuthInput,
+  $conversationId: [String],
+  $selectedFolders: [String],
+  $action: String
+) {
+  bulkCoversationSafe(
+    input: $auth,
+    conversationId: $conversationId,
+    selectedFolders: $selectedFolders,
+    action: $action
+  ) {
+    status
+  }
+}
+"""
+
 # GET RECORD BY ID QUERY
 GET_RECORD_BY_ID_QUERY = """
 query ent($id: ID!, $auth: AuthInput, $callStartMs: String, $isHistoryVault: Boolean) {

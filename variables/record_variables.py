@@ -63,6 +63,18 @@ def build_remove_record_case_input(*, conversation_ids, case_id):
         "riskRating": None
     }
 
+def build_remove_record_folder_input(*, conversation_ids, folder_id):
+    return {
+        "auth": {
+            "locale": "ro-RO",
+            "timeZone": -180,
+            "timeZoneId": "Europe/Bucharest"
+        },
+        "conversationId": conversation_ids,
+        "selectedFolders": [folder_id],
+        "action": "remove"
+    }
+
 def build_bulk_export_input(
     *,
     list_id,
