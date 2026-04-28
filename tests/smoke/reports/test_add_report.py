@@ -190,8 +190,8 @@ class TestCreateReportFlow:
                     f"Expected non-empty report_id, got {report_id!r}"
 
         finally:
-            # --- CLEANUP: Delete report and case---
-            with allure.step("Deleting the case and report"):
+            # --- CLEANUP: Delete report ---
+            with allure.step("Deleting the report"):
                 if report:
                     report_helper.delete_report_by_id(report["id"])
 
@@ -223,8 +223,8 @@ class TestCreateReportFlow:
                     f"Expected non-empty report_id, got {report_id!r}"
 
         finally:
-            # --- CLEANUP: Delete report and case---
-            with allure.step("Deleting the case and report"):
+            # --- CLEANUP: Delete report ---
+            with allure.step("Deleting the report"):
                 if report:
                     report_helper.delete_report_by_id(report["id"])
     
@@ -304,8 +304,8 @@ class TestCreateReportFlow:
                     f"Expected non-empty report_id, got {report_id!r}"
 
         finally:
-            # --- CLEANUP: Delete report and case---
-            with allure.step("Deleting the case and report"):
+            # --- CLEANUP: Delete report ---
+            with allure.step("Deleting the report"):
                 if report:
                     report_helper.delete_report_by_id(report["id"])
 
@@ -337,7 +337,7 @@ class TestCreateReportFlow:
                     f"Expected non-empty report_id, got {report_id!r}"
 
         finally:
-            # --- CLEANUP: Delete report and case---
-            with allure.step("Deleting the case and report"):
+            # --- CLEANUP: Delete report ---
+            with allure.step("Deleting the report"):
                 if report:
                     report_helper.delete_report_by_id(report["id"])
