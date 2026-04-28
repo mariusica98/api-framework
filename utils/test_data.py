@@ -33,6 +33,10 @@ TEST_REPORT_ID = str(uuid.uuid4())
 TEST_REPORT_TITLE = "Test Report using Automation Script"
 TEST_REPORT_CASE_COMPLIANCE_RATE_KPI = "CaseComplianceRate"
 TEST_REPORT_OVERALL_COMPLIANCE_RATE_KPI = "OverallComplianceRate"
+TEST_REPORT_OVERALL_ESCALATION_RATE_KPI = "OverallEscalationRate"
+TEST_REPORT_OVERALL_RESOLUTION_TIME_KPI = "OverallResolutionTime"
+TEST_REPORT_CASE_ESCALATION_RATE_KPI = "CaseEscalationRate"
+TEST_REPORT_CASE_RESOLUTION_TIME_KPI = "CaseResolutionTime"
 
 ### Records ###
 TEST_RECORD_ID = "0100b580-eaed-4271-9680-eedade32458f"
