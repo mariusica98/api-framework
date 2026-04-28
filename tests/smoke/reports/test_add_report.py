@@ -374,3 +374,71 @@ class TestCreateReportFlow:
             with allure.step("Deleting the report"):
                 if report:
                     report_helper.delete_report_by_id(report["id"])
+
+    # --- Audit KPI ---
+
+    @allure.feature("Reports")
+    @allure.title("Create Report successfully - Current Calls KPI")
+    def test_create_report_current_calls(self, report_helper):
+
+        report = None
+
+        try:
+            # --- Prepare report input ---
+            with allure.step("Preparing report input"):
+                report_input = build_create_report_input(
+                    **{
+                        **DEFAULT_REPORT_INPUT_PARAMS,
+                        "kpi": TEST_REPORT_CURRENT_CALLS_KPI
+                    }
+                )
+                report_input["id"] = str(uuid.uuid4())
+
+            # --- Create report ---
+            with allure.step("Creating the report - Current Calls KPI"):
+                report = report_helper.create_report(report_input)
+
+            # --- Assertion for created report ---
+            with allure.step("Verifying created report"):
+                report_id = report["id"]
+                assert isinstance(report_id, str) and report_id != "", \
+                    f"Expected non-empty report_id, got {report_id!r}"
+
+        finally:
+            # --- CLEANUP: Delete report ---
+            with allure.step("Deleting the report"):
+                if report:
+                    report_helper.delete_report_by_id(report["id"])
+
+    @allure.feature("Reports")
+    @allure.title("Create Report successfully - Audit Logs KPI")
+    def test_create_report_audit_logs(self, report_helper):
+
+        report = None
+
+        try:
+            # --- Prepare report input ---
+            with allure.step("Preparing report input"):
+                report_input = build_create_report_input(
+                    **{
+                        **DEFAULT_REPORT_INPUT_PARAMS,
+                        "kpi": TEST_REPORT_AUDIT_LOGS_KPI
+                    }
+                )
+                report_input["id"] = str(uuid.uuid4())
+
+            # --- Create report ---
+            with allure.step("Creating the report - Audit Logs KPI"):
+                report = report_helper.create_report(report_input)
+
+            # --- Assertion for created report ---
+            with allure.step("Verifying created report"):
+                report_id = report["id"]
+                assert isinstance(report_id, str) and report_id != "", \
+                    f"Expected non-empty report_id, got {report_id!r}"
+
+        finally:
+            # --- CLEANUP: Delete report ---
+            with allure.step("Deleting the report"):
+                if report:
+                    report_helper.delete_report_by_id(report["id"])
