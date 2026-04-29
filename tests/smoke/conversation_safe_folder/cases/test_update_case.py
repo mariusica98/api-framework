@@ -38,7 +38,7 @@ class TestUpdateCaseFlow:
             with allure.step("Creating a case to be updated"):
                 case_folder = case_helper.create_case(create_input)
                 case_id = case_folder["id"]
-                cleanup_context["case_id"] = case_id
+                cleanup_context["case_ids"].append(case_id)
 
             # --- Update case ---
             with allure.step("Updating the case"):
