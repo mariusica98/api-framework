@@ -3,7 +3,7 @@ import allure
 
 from config.graphql_client import GraphQLClient
 from utils.helper.user_helper import UserHelper
-from utils.test_data import TEST_COMPLIANCE_VOICE_RECORDING_POLICY_ID, TEST_USER_06_DEV2_EMAIL, TEST_USER_06_DEV2_ID, TEST_USER_06_DEV2_NAME
+from utils.test_data import TEST_COMPLIANCE_VOICE_RECORDING_POLICY_LICENCE_ID, TEST_USER_06_DEV2_EMAIL, TEST_USER_06_DEV2_ID, TEST_USER_06_DEV2_NAME
 from variables.user_variables import build_create_user_input, build_delete_user_input
 
 @pytest.fixture(scope="module")
@@ -41,7 +41,7 @@ class TestCreateUserFlow:
             user_id=TEST_USER_06_DEV2_ID,
             name=TEST_USER_06_DEV2_NAME,
             username=TEST_USER_06_DEV2_EMAIL,
-            license=TEST_COMPLIANCE_VOICE_RECORDING_POLICY_ID
+            license=TEST_COMPLIANCE_VOICE_RECORDING_POLICY_LICENCE_ID
         )
 
         # --- Add user ---
