@@ -3,7 +3,7 @@ import allure
 
 from config.graphql_client import GraphQLClient
 from utils.helper.user_helper import UserHelper
-from utils.test_data import TEST_COMPLIANCE_VOICE_RECORDING_POLICY_LICENCE_ID, TEST_USER_06_DEV2_EMAIL, TEST_USER_06_DEV2_ID, TEST_USER_06_DEV2_NAME
+from utils.test_data import TEST_COMPLIANCE_UC_RECORDING_LICENCE_ID, TEST_COMPLIANCE_VOICE_RECORDING_POLICY_LICENCE_ID, TEST_USER_06_DEV2_EMAIL, TEST_USER_06_DEV2_ID, TEST_USER_06_DEV2_NAME
 from variables.user_variables import build_create_user_input, build_delete_user_input
 
 @pytest.fixture(scope="module")
@@ -46,6 +46,35 @@ class TestCreateUserFlow:
 
         # --- Add user ---
         with allure.step("Add user with Compliance Voice Recording license"):
+            response = user_helper.create_user(input_data)
+
+        # --- Assertions for add user ---
+        with allure.step("Verify response"):
+            assert response is not None
+            assert response["__typename"] == "UserData"
+            assert response["name"] == TEST_USER_06_DEV2_NAME
+        
+        # --- Get id by user name ---
+        user = user_helper.find_user_by_name(TEST_USER_06_DEV2_NAME)
+        user_id = user["id"]
+
+        # --- Store id for cleanup ---
+        cleanup_context["user_id"] = user_id
+
+    @allure.feature("User Management")
+    @allure.title("Add user - Compliance UC Recording licence")
+    def test_add_user_compliance_uc_recording_licence(self, user_helper, cleanup_context):
+
+        # --- Input data for add user ---
+        input_data = build_create_user_input(
+            user_id=TEST_USER_06_DEV2_ID,
+            name=TEST_USER_06_DEV2_NAME,
+            username=TEST_USER_06_DEV2_EMAIL,
+            license=TEST_COMPLIANCE_UC_RECORDING_LICENCE_ID
+        )
+
+        # --- Add user ---
+        with allure.step("Add user with Compliance UC Recording license"):
             response = user_helper.create_user(input_data)
 
         # --- Assertions for add user ---
