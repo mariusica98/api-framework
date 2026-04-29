@@ -19,20 +19,31 @@ def folder_helper(client):
 def record_helper(client):
     return RecordHelper(client)
 
+@pytest.fixture
+def cleanup_context(folder_helper):
+    context = {
+        "folder_id": None
+    }
+
+    yield context
+
+    with allure.step("Cleanup: deleting created folder"):
+        if context["folder_id"]:
+            folder_helper.delete_folder_by_id(context["folder_id"])
+
 class TestRemoveRecordFromFolderFlow:
 
     @allure.feature("Records")
     @allure.title("Remove record from folder successfully: Record page (bulk operation)")
-    def test_remove_record_from_folder_from_record_page(self, folder_helper, record_helper):
+    def test_remove_record_from_folder_from_record_page(self, folder_helper, record_helper, cleanup_context):
 
-        folder_id = None
-        try:
             # --- Create a new folder ---
             create_input = build_create_folder_input(**DEFAULT_FOLDER_INPUT_PARAMS)
             with allure.step("Creating a new folder"):
                 folder = folder_helper.create_folder(create_input)
                 folder_id = folder["id"]
-
+                cleanup_context["folder_id"] = folder_id
+                
             # --- Input for adding record to folder ---
             add_record_params = DEFAULT_ADD_RECORD_TO_FOLDER_PARAMS.copy()
             add_record_params.update({
@@ -61,11 +72,5 @@ class TestRemoveRecordFromFolderFlow:
             # --- Assertions for remove record from folder ---
             with allure.step("Verifying remove record from folder response"):
                 assert response["status"] == "ok"
-
-        finally:
-            # --- Cleanup ---
-            with allure.step("Deleting the folder"):
-                if folder_id:
-                    folder_helper.delete_folder_by_id(folder_id)
     
     # --- The remove record from Folder to CSF page test is not necessary because it uses the same create/update folder endpoint

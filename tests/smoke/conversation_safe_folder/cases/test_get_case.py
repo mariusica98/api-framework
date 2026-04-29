@@ -14,39 +14,43 @@ def client():
 def case_helper(client):
     return CaseHelper(client)
 
+@pytest.fixture
+def cleanup_context(case_helper):
+    context = {
+        "case_id": None
+    }
+
+    yield context
+
+    with allure.step("Cleanup: deleting created case"):
+        if context["case_id"]:
+            case_helper.delete_case_by_id(context["case_id"])
+
 class TestGetCaseFlow:
 
     @allure.feature("Case Management")
     @allure.title("Get Case by ID successfully")
-    def test_get_case_by_id(self, case_helper):
+    def test_get_case_by_id(self, case_helper, cleanup_context):
 
-        case_folder = None
-        case_id = None
-        try:
-            #-- Prepare default case input data ---
-            create_input = build_create_case_input(**DEFAULT_CASE_INPUT_PARAMS)
+        #-- Prepare default case input data ---
+        create_input = build_create_case_input(**DEFAULT_CASE_INPUT_PARAMS)
 
-            #-- Create case ---
-            with allure.step("Creating a new case for GET"):
-                case_folder = case_helper.create_case(create_input)
-                case_id = case_folder["id"]
+        #-- Create case ---
+        with allure.step("Creating a new case for GET"):
+            case_folder = case_helper.create_case(create_input)
+            case_id = case_folder["id"]
+            cleanup_context["case_id"] = case_id
 
-            # --- Get case by ID ---
-            with allure.step("Getting case by ID"):
-                case_data = case_helper.get_case_by_id(case_id)
+        # --- Get case by ID ---
+        with allure.step("Getting case by ID"):
+            case_data = case_helper.get_case_by_id(case_id)
 
-            # --- Assertions for get case ---
-            with allure.step("Verifying case data"):
-                assert case_data["id"] == case_id
-                assert case_data["name"] == create_input["conversationSafeFolder"]["name"]
-                assert case_data["description"] == create_input["conversationSafeFolder"]["description"]
-                assert case_data["isCaseManagement"] is True
-
-        finally:
-            # --- Cleanup ---
-            with allure.step("Deleting the case"):
-                if case_id:
-                    case_helper.delete_case_by_id(case_id)
+        # --- Assertions for get case ---
+        with allure.step("Verifying case data"):
+            assert case_data["id"] == case_id
+            assert case_data["name"] == create_input["conversationSafeFolder"]["name"]
+            assert case_data["description"] == create_input["conversationSafeFolder"]["description"]
+            assert case_data["isCaseManagement"] is True
 
     @allure.feature("Case Management")
     @allure.title("Get all cases successfully")

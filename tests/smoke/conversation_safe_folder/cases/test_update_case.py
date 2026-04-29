@@ -14,15 +14,23 @@ def client():
 def case_helper(client):
     return CaseHelper(client)
 
+@pytest.fixture
+def cleanup_context(case_helper):
+    context = {
+        "case_ids": []
+    }
+
+    yield context
+
+    for case_id in context["case_ids"]:
+        case_helper.delete_case_by_id(case_id)
+
 class TestUpdateCaseFlow:
 
     @allure.feature("Case Management")
     @allure.title("Update Case successfully")
-    def test_update_case(self, case_helper):
-
-        case_folder = None
-        case_id = None
-        try:
+    def test_update_case(self, case_helper, cleanup_context):
+            
             #--- Prepare default case input data ---
             create_input = build_create_case_input(**DEFAULT_CASE_INPUT_PARAMS)
 
@@ -30,6 +38,7 @@ class TestUpdateCaseFlow:
             with allure.step("Creating a case to be updated"):
                 case_folder = case_helper.create_case(create_input)
                 case_id = case_folder["id"]
+                cleanup_context["case_id"] = case_id
 
             # --- Update case ---
             with allure.step("Updating the case"):
@@ -58,58 +67,43 @@ class TestUpdateCaseFlow:
                 assert cmd["caseStatus"] == TEST_CASE_STATUS_IN_PROGRESS
                 assert cmd["contentStatus"] == TEST_CASE_CONTENT_STATUS_ESCALED
                 assert cmd["contentRiskRating"] == TEST_CASE_RISK_RATING_ADHERANCE
-
-        finally:
-            # --- Cleanup ---
-            with allure.step("Deleting the case"):
-                if case_id:
-                    case_helper.delete_case_by_id(case_id)
         
     @allure.feature("Case Management")
     @allure.title("Update Case with error - duplicate name")
-    def test_update_case_with_duplicate_name(self, case_helper):
+    def test_update_case_with_duplicate_name(self, case_helper, cleanup_context):
 
-        case_folder_1 = case_folder_2 = None
-        case_id_1 = case_id_2 = None
-        try:
-            # --- Prepare default case input data for first case ---
-            create_input_1 = build_create_case_input(**DEFAULT_CASE_INPUT_PARAMS)
+        # --- Prepare default case input data for first case ---
+        create_input_1 = build_create_case_input(**DEFAULT_CASE_INPUT_PARAMS)
 
-            #--- Create first case ---
-            with allure.step("Creating first case"):
-                case_folder_1 = case_helper.create_case(create_input_1)
-                case_id_1 = case_folder_1["id"]
+        #--- Create first case ---
+        with allure.step("Creating first case"):
+            case_folder_1 = case_helper.create_case(create_input_1)
+            case_id_1 = case_folder_1["id"]
+            cleanup_context["case_ids"].append(case_id_1)
 
-            # --- Prepare case input data for second case ---
-            create_input_2 = build_create_case_input(**{**DEFAULT_CASE_INPUT_PARAMS, "name": TEST_CASE_NAME_2})
-            
-            #--- Create second case ---
-            with allure.step("Creating the second case"):
-                case_folder_2 = case_helper.create_case(create_input_2)
-                case_id_2 = case_folder_2["id"]
+        # --- Prepare case input data for second case ---
+        create_input_2 = build_create_case_input(**{**DEFAULT_CASE_INPUT_PARAMS, "name": TEST_CASE_NAME_2})
+        
+        #--- Create second case ---
+        with allure.step("Creating the second case"):
+            case_folder_2 = case_helper.create_case(create_input_2)
+            case_id_2 = case_folder_2["id"]
+            cleanup_context["case_ids"].append(case_id_2)
 
-            # --- Attempt to update second case with duplicate name ---
-            with allure.step("Updating the second case with the first case's name"):
-                update_input = build_update_case_input(
-                    name=TEST_CASE_NAME_1, 
-                    description=TEST_CASE_DESCRIPTION,
-                    case_status=TEST_CASE_STATUS_OPEN,
-                    content_status=TEST_CASE_CONTENT_STATUS_NEW,
-                    content_risk_rating=TEST_CASE_RISK_RATING_INFORMATION,
-                    user_id="",
-                    tenant_id=""
-                )
-                response = case_helper.update_case(case_id_2, update_input)
+        # --- Attempt to update second case with duplicate name ---
+        with allure.step("Updating the second case with the first case's name"):
+            update_input = build_update_case_input(
+                name=TEST_CASE_NAME_1, 
+                description=TEST_CASE_DESCRIPTION,
+                case_status=TEST_CASE_STATUS_OPEN,
+                content_status=TEST_CASE_CONTENT_STATUS_NEW,
+                content_risk_rating=TEST_CASE_RISK_RATING_INFORMATION,
+                user_id="",
+                tenant_id=""
+            )
+            response = case_helper.update_case(case_id_2, update_input)
 
-            # --- Assertions for duplicate name error ---
-            with allure.step("Verifying the response for duplicate name error"):
-                assert response["status"] == "error", f"Expected error status, got: {response['status']!r}"
-                assert response["text"] == "nameDuplicatedError", f"Expected text 'nameDuplicatedError', got: {response['text']!r}"
-
-        finally:
-            # --- Cleanup ---
-            with allure.step("Deleting the cases"):
-                if case_id_1:
-                    case_helper.delete_case_by_id(case_id_1)
-                if case_id_2:
-                    case_helper.delete_case_by_id(case_id_2)
+        # --- Assertions for duplicate name error ---
+        with allure.step("Verifying the response for duplicate name error"):
+            assert response["status"] == "error", f"Expected error status, got: {response['status']!r}"
+            assert response["text"] == "nameDuplicatedError", f"Expected text 'nameDuplicatedError', got: {response['text']!r}"

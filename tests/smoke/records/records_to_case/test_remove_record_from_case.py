@@ -19,19 +19,30 @@ def case_helper(client):
 def record_helper(client):
     return RecordHelper(client)
 
+@pytest.fixture
+def cleanup_context(case_helper):
+    context = {
+        "case_id": None
+    }
+
+    yield context
+
+    with allure.step("Cleanup: deleting created case"):
+        if context["case_id"]:
+            case_helper.delete_case_by_id(context["case_id"])
+
 class TestRemoveRecordFromCaseFlow:
 
     @allure.feature("Records")
     @allure.title("Remove record from case successfully: Record page(bulk operation)")
-    def test_remove_record_from_case_from_record_page(self, case_helper, record_helper):
-
-        case_id = None
-        try:
+    def test_remove_record_from_case_from_record_page(self, case_helper, record_helper, cleanup_context):
+            
             # --- Create a new case ---
             create_input = build_create_case_input(**DEFAULT_CASE_INPUT_PARAMS)
             with allure.step("Creating a new case"):
                 case_folder = case_helper.create_case(create_input)
                 case_id = case_folder["id"]
+                cleanup_context["case_id"] = case_id
 
             # --- Input for adding record to case ---
             add_record_params = DEFAULT_ADD_RECORD_CASE_PARAMS.copy()
@@ -62,11 +73,5 @@ class TestRemoveRecordFromCaseFlow:
             # --- Assertions for remove record from case ---
             with allure.step("Verifying remove record from case response"):
                 assert response["status"] == "ok"
-
-        finally:
-            # --- Cleanup ---
-            with allure.step("Deleting the case"):
-                if case_id:
-                    case_helper.delete_case_by_id(case_id)
     
     # --- The remove record from Case to CSF page test is not necessary because it uses the same create/update case endpoint
