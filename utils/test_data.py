@@ -50,3 +50,9 @@ TEST_RECORD_EXPORT_ZIP_ID = "12345678"
 TEST_RECORD_EXPORT_ZIP_NAME = "recordExport"
 TEST_RECORD_TOPIC_NAME = "TestUser20 Dev2ASC - Marius Gaitan"
 TEST_DEFAULT_RECORDS_PATH = "https://stage-teams.asc-recording.app/"
+
+### Users ###
+TEST_USER_DEV_07_ID = "555c55fa-f857-4df0-9d94-686f78e0bd0b"
+
+### Policy Rules ###
+TEST_POLICY_RULE_ZQA_BULK_ID = "1fa79b57-4eef-4378-ba5f-61685c104187"
