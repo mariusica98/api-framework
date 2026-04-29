@@ -3,7 +3,7 @@ import allure
 
 from config.graphql_client import GraphQLClient
 from utils.helper.user_helper import UserHelper
-from utils.test_data import TEST_POLICY_RULE_ZQA_BULK_ID, TEST_USER_DEV_07_ID
+from utils.test_data import TEST_POLICY_RULE_ZQA_BULK_ID, TEST_USER_07_DEV2_ID
 from variables.user_variables import (
     build_update_user_input,
     DEFAULT_USER_UPDATE_PARAMS
@@ -26,7 +26,7 @@ class TestUpdateUserFlow:
 
        # --- Input for update user Recording rules ---
         update_input = build_update_user_input(
-            user_id=TEST_USER_DEV_07_ID,
+            user_id=TEST_USER_07_DEV2_ID,
             recording_rules=TEST_POLICY_RULE_ZQA_BULK_ID,
             **DEFAULT_USER_UPDATE_PARAMS
         )

@@ -47,6 +47,28 @@ def build_update_user_input(
         "user": [user_obj]
     }
 
+def build_create_user_input(
+    *,
+    user_id,
+    name,
+    username,
+    license
+):
+    user_obj = {
+        "userId": user_id,
+        "name": name,
+        "username": username,
+        "license": license
+    }
+
+    # remove None values (same pattern as update)
+    user_obj = {k: v for k, v in user_obj.items() if v is not None}
+
+    return {
+        "auth": DEFAULT_AUTH,
+        "user": [user_obj]
+    }
+
 #  Default parameters for updating a user input
 DEFAULT_AUTH = {
     "locale": "ro-RO",
