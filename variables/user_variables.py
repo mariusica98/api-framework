@@ -68,6 +68,12 @@ def build_create_user_input(
         "user": [user_obj]
     }
 
+def build_delete_user_input(*, user_id):
+    return {
+        "auth": DEFAULT_AUTH,
+        "id": [user_id]
+    }
+
 #  Default parameters for updating a user input
 DEFAULT_AUTH = {
     "locale": "ro-RO",

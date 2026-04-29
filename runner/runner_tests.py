@@ -21,7 +21,9 @@ tests_to_run = [
     "tests/smoke/records/records_to_folder/test_remove_record_from_folder.py",
     "tests/smoke/records/test_export_record.py",
     "tests/smoke/records/test_get_record.py",
-    "tests/security/test_cases_security.py"
+    "tests/security/test_cases_security.py",
+    "tests/smoke/users/test_add_user.py",
+    "tests/smoke/users/test_update_user.py",
 ]
 
 allure_dir = "allure-results"
