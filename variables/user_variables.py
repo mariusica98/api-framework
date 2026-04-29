@@ -61,7 +61,6 @@ def build_create_user_input(
         "license": license
     }
 
-    # remove None values (same pattern as update)
     user_obj = {k: v for k, v in user_obj.items() if v is not None}
 
     return {

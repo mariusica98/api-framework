@@ -10,11 +10,13 @@ class UserHelper:
         self.client = client
 
     def create_user(self, input_data):
+        """
+        Create user
+        """
         response = self.client.execute(CREATE_USER_MUTATION, input_data)
 
         result = response["data"]["createUser"]
 
-        # FIX: API returnează listă uneori
         if isinstance(result, list):
             return result[0]
 
