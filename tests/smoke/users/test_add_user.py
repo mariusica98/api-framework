@@ -3,7 +3,7 @@ import allure
 
 from config.graphql_client import GraphQLClient
 from utils.helper.user_helper import UserHelper
-from utils.test_data import TEST_COMPLIANCE_UC_RECORDING_LICENCE_ID, TEST_COMPLIANCE_VOICE_RECORDING_POLICY_LICENCE_ID, TEST_USER_06_DEV2_EMAIL, TEST_USER_06_DEV2_ID, TEST_USER_06_DEV2_NAME
+from utils.test_data import *
 from variables.user_variables import build_create_user_input, build_delete_user_input
 
 @pytest.fixture(scope="module")
@@ -33,59 +33,44 @@ def cleanup_context(user_helper):
 class TestCreateUserFlow:
 
     @allure.feature("User Management")
-    @allure.title("Add user - Compliance Voice Recording license")
-    def test_add_user_compliance_voice_recording_licence(self, user_helper, cleanup_context):
+    @allure.title("Add user - All licences")
+    @pytest.mark.parametrize(
+        "license_id, description",
+        [
+            (TEST_COMPLIANCE_VOICE_RECORDING_POLICY_LICENCE_ID, "Compliance Voice Recording"),
+            (TEST_COMPLIANCE_UC_RECORDING_LICENCE_ID, "Compliance UC Recording"),
+            (TEST_SMART_VOICE_RECORDING_POLICY_ID, "Smart Voice Recording"),
+            (TEST_SMART_UC_RECORDING_POLICY_ID, "Smart UC Recording"),
+            (TEST_ENTRY_VOICE_RECORDING_POLICY_ID, "Entry Voice Recording"),
+            (TEST_SMART_BASE_LICENCE_ID, "Smart Base Licence"),
+            (TEST_COMPLIANCE_BASE_LICENCE_ID, "Compliance Base Licence"),
+            (TEST_CHAT_RECORDING_STANDALONE_LICENCE_ID, "Chat Recording Standalone Licence"),
+            (TEST_RECORDING_INSIGHTS_AI_LICENCE_ID, "Recording Insights AI Licence"),
+            (TEST_COMPLIANCE_VOICE_RECORDING_AND_ANALYTICS_LICENCE_ID, "Compliance Voice Recording and Analytics Licence"),
+            (TEST_COMPLIANCE_UC_RECORDING_AND_ANALYTICS_LICENCE_ID, "Compliance UC Recording and Analytics Licence"),
+            (TEST_SMART_VOICE_AND_ANALYTICS_LICENCE_ID, "Smart Voice and Analytics Licence"),
+            (TEST_SMART_UC_RECORDING_AND_ANALYTICS_LICENCE_ID, "Smart UC Recording and Analytics Licence"),
+            
+        ]
+    )
+    def test_add_user_with_various_licences(self, user_helper, cleanup_context, license_id, description):
 
-        # --- Input data for add user ---
-        input_data = build_create_user_input(
-            user_id=TEST_USER_06_DEV2_ID,
-            name=TEST_USER_06_DEV2_NAME,
-            username=TEST_USER_06_DEV2_EMAIL,
-            license=TEST_COMPLIANCE_VOICE_RECORDING_POLICY_LICENCE_ID
-        )
+        with allure.step(f"Input for {description}"):
+            input_data = build_create_user_input(
+                user_id=TEST_USER_06_DEV2_ID,
+                name=TEST_USER_06_DEV2_NAME,
+                username=TEST_USER_06_DEV2_EMAIL,
+                license=license_id
+            )
 
-        # --- Add user ---
-        with allure.step("Add user with Compliance Voice Recording license"):
+        with allure.step(f"Add user with {description} license"):
             response = user_helper.create_user(input_data)
 
-        # --- Assertions for add user ---
         with allure.step("Verify response"):
             assert response is not None
             assert response["__typename"] == "UserData"
             assert response["name"] == TEST_USER_06_DEV2_NAME
-        
-        # --- Get id by user name ---
-        user = user_helper.find_user_by_name(TEST_USER_06_DEV2_NAME)
-        user_id = user["id"]
 
-        # --- Store id for cleanup ---
-        cleanup_context["user_id"] = user_id
-
-    @allure.feature("User Management")
-    @allure.title("Add user - Compliance UC Recording licence")
-    def test_add_user_compliance_uc_recording_licence(self, user_helper, cleanup_context):
-
-        # --- Input data for add user ---
-        input_data = build_create_user_input(
-            user_id=TEST_USER_06_DEV2_ID,
-            name=TEST_USER_06_DEV2_NAME,
-            username=TEST_USER_06_DEV2_EMAIL,
-            license=TEST_COMPLIANCE_UC_RECORDING_LICENCE_ID
-        )
-
-        # --- Add user ---
-        with allure.step("Add user with Compliance UC Recording license"):
-            response = user_helper.create_user(input_data)
-
-        # --- Assertions for add user ---
-        with allure.step("Verify response"):
-            assert response is not None
-            assert response["__typename"] == "UserData"
-            assert response["name"] == TEST_USER_06_DEV2_NAME
-        
-        # --- Get id by user name ---
-        user = user_helper.find_user_by_name(TEST_USER_06_DEV2_NAME)
-        user_id = user["id"]
-
-        # --- Store id for cleanup ---
-        cleanup_context["user_id"] = user_id
+        with allure.step("Get user ID for cleanup"):
+            user = user_helper.find_user_by_name(TEST_USER_06_DEV2_NAME)
+            cleanup_context["user_id"] = user["id"]
