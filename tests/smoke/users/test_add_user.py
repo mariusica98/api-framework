@@ -37,7 +37,7 @@ class TestCreateUserFlow:
     @pytest.mark.parametrize(
         "license_id, description",
         [
-            (TEST_COMPLIANCE_VOICE_RECORDING_POLICY_LICENCE_ID, "Compliance Voice Recording"),
+            (TEST_COMPLIANCE_VOICE_RECORDING_POLICY_LICENE_ID, "Compliance Voice Recording"),
             (TEST_COMPLIANCE_UC_RECORDING_LICENCE_ID, "Compliance UC Recording"),
             (TEST_SMART_VOICE_RECORDING_POLICY_ID, "Smart Voice Recording"),
             (TEST_SMART_UC_RECORDING_POLICY_ID, "Smart UC Recording"),

@@ -3,9 +3,16 @@
 def build_update_user_input(
     *,
     user_id,
+
+    # Core config
     recording_rules=None,
+    replay=None,
     access=None,
+    analytics=None,
+    storageId=None,
     license=None,
+
+    # Add-ons (feature toggles)
     addOnAnalytics=None,
     addOnCaseManagement=None,
     addOnCompliance=None,
@@ -22,9 +29,16 @@ def build_update_user_input(
 ):
     user_obj = {
         "id": user_id,
+
+        # Core config
         "recordingRules": recording_rules,
+        "replay": replay,
         "access": access,
+        "analytics": analytics,
+        "storageId": storageId,
         "license": license,
+
+        # Add-ons
         "addOnAnalytics": addOnAnalytics,
         "addOnCaseManagement": addOnCaseManagement,
         "addOnCompliance": addOnCompliance,
@@ -40,6 +54,7 @@ def build_update_user_input(
         "addOnZoom": addOnZoom,
     }
 
+    # Eliminăm câmpurile nefolosite
     user_obj = {k: v for k, v in user_obj.items() if v is not None}
 
     return {
@@ -79,20 +94,4 @@ DEFAULT_AUTH = {
     "locale": "ro-RO",
     "timeZone": -180,
     "timeZoneId": "Europe/Bucharest"
-}
-
-DEFAULT_USER_UPDATE_PARAMS = {
-    "addOnAnalytics": True,
-    "addOnCaseManagement": True,
-    "addOnCompliance": True,
-    "addOnDynamics": False,
-    "addOnEmail": True,
-    "addOnFullChat": True,
-    "addOnGenesys": False,
-    "addOnLeapXpert": False,
-    "addOnMsftTeamsUC": False,
-    "addOnMsftTeamsVoice": False,
-    "addOnQualityManagement": True,
-    "addOnRingcentral": False,
-    "addOnZoom": False,
 }
