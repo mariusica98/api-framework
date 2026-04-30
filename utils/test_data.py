@@ -55,7 +55,6 @@ TEST_DEFAULT_RECORDS_PATH = "https://stage-teams.asc-recording.app/"
 TEST_USER_06_DEV2_ID = "6a5c667b-dd17-4853-b72a-806af00dc1dd" # FOR CREATE : this is user_id
 TEST_USER_06_DEV2_NAME = "TestUser06 Dev2ASC" # FOR CREATE
 TEST_USER_06_DEV2_EMAIL = "test06@dev2.asc.d"
-TEST_USER_07_DEV2_ID = "555c55fa-f857-4df0-9d94-686f78e0bd0b" # FOR UPDATE : this is id for user 7 not the user_id
 
 ### Rules ###
 ### Recording rules ###
