@@ -50,7 +50,7 @@ class TestShareRecordFlow:
             response = record_helper.get_entry_with_jwt(entry_input)
          
         # --- Assertions for shared record ---
-        with allure.step("Validate entry response"):
+        with allure.step("Validate record response"):
             assert response is not None
             assert response["conversationId"] == TEST_RECORD_ID
             assert response["duration"] == TEST_RECORD_DURATION
