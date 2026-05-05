@@ -221,6 +221,48 @@ def build_add_record_to_folder_bulk_input(
         "action": "add"
     }
 
+def build_generate_jwt_token_input(
+    *,
+    conversation_id,
+    tenant_id,
+    expiration_date,
+    with_audio=True,
+    with_video=True,
+    with_chat=True,
+    with_transcript=True,
+    with_metadata=True,
+    with_notes=True,
+    locale="ro-RO",
+    time_zone=-180,
+    time_zone_id="Europe/Bucharest"
+):
+    return {
+        "input": {
+            "locale": locale,
+            "timeZone": time_zone,
+            "timeZoneId": time_zone_id
+        },
+        "conversationId": conversation_id,
+        "tenantId": tenant_id,
+        "expirationDate": expiration_date,
+        "withAudio": with_audio,
+        "withVideo": with_video,
+        "withChat": with_chat,
+        "withTranscript": with_transcript,
+        "withMetadata": with_metadata,
+        "withNotes": with_notes
+    }
+
+def build_get_entry_with_jwt_input(
+    *,
+    jwt_token,
+    call_start_ms=""
+):
+    return {
+        "jwtToken": jwt_token,
+        "callStartMs": call_start_ms
+    }
+
 # Default parameters for add record to folder input
 DEFAULT_ADD_RECORD_TO_FOLDER_PARAMS = {
     "name": TEST_FOLDER_NAME,

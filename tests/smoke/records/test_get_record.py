@@ -28,7 +28,7 @@ class TestGetRecordById:
         # --- Execute get record by ID query ---
         with allure.step("Return record by ID"):
             response = record_helper.get_record_by_id(input_data)
-
+        
         # --- Assertions for get record by ID response ---
         with allure.step("Validate response fields"):
             assert response["id"] and response["id"] != ""

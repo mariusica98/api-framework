@@ -163,3 +163,51 @@ query getFilterRecordings(
   }
 }
 """
+
+# GET RECORD SHARED TOKEN
+GENERATE_JWT_TOKEN_QUERY = """
+query ent(
+  $input: AuthInput
+  $conversationId: String
+  $tenantId: String
+  $expirationDate: Date
+  $withAudio: Boolean
+  $withVideo: Boolean
+  $withChat: Boolean
+  $withTranscript: Boolean
+  $withMetadata: Boolean
+  $withNotes: Boolean
+) {
+  generateJWTTokenForCall(
+    input: $input
+    conversationId: $conversationId
+    tenantId: $tenantId
+    expirationDate: $expirationDate
+    withAudio: $withAudio
+    withVideo: $withVideo
+    withChat: $withChat
+    withTranscript: $withTranscript
+    withMetadata: $withMetadata
+    withNotes: $withNotes
+  )
+}
+"""
+
+# GET SHARED RECORD PROPERTIES
+GET_ENTRY_WITH_JWT_QUERY = """
+query ent($jwtToken: String, $callStartMs: String) {
+  getEntryWithJWT(jwtToken: $jwtToken, callStartMs: $callStartMs) {
+    id
+    conversationId
+    callStartMs
+    callEndMs
+    topic
+    duration
+    tenantId
+    hasAudio
+    hasVideo
+    hasChat
+    __typename
+  }
+}
+"""
