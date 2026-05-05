@@ -30,7 +30,7 @@ class TestDeleteUserFlow:
             )
         
         # --- Create user ---
-        with allure.step(f"Create user"):
+        with allure.step("Create user"):
             user_helper.create_user(input_data)
 
         # --- Get user ID ---
